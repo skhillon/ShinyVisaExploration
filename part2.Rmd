@@ -15,7 +15,9 @@ library(leaflet)
 
 Because the data is so large, we will only import the first 10,000 observations:
 ```{r}
-h1b.apps <- read.csv("~/Desktop/DataScienceCourses/stat331/ShinyVisaExploration/h1b_kaggle.csv", nrows = 10000)
+h1b.apps <- read.csv("~/Desktop/DataScienceCourses/stat331/ShinyVisaExploration/h1b_kaggle.csv", 
+                     nrows = 10000, 
+                     stringsAsFactors = FALSE)
 str(h1b.apps)
 ```
 
