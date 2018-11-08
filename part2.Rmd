@@ -39,6 +39,7 @@ leaflet(h1b.apps) %>%
 ```
 
 Below is an example of the same map with the following filters:
+
 - Application Certified and not withdrawn
 - Full time jobs
 - Year 2011, 2013, or 2016
