@@ -1,0 +1,60 @@
+---
+title: "Visa Exploration - Part 2"
+output:
+  html_document:
+    df_print: paged
+---
+
+This document contains visualizations for part 2 of the STAT 331 final project.
+```{r}
+library(tidyverse)
+library(readr)
+library(stringr)
+library(leaflet)
+```
+
+Because the data is so large, we will only import the first 10,000 observations:
+```{r}
+h1b.apps <- read.csv("~/Desktop/DataScienceCourses/stat331/ShinyVisaExploration/h1b_kaggle.csv", nrows = 10000)
+str(h1b.apps)
+```
+
+
+## Geographic Exploration
+
+The code below generates a leaflet plot with frequency of applications. In an interactive setting, this map could include filters to view by:
+- Year
+- Application status
+- Employer name
+- SOC name
+- Job Title
+- Full Time/part time
+- Wage
+
+Below is the data without any filters:
+```{r}
+leaflet(h1b.apps) %>% 
+    addTiles() %>%
+    addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
+```
+
+Below is an example of the same map with the following filters:
+- Application Certified and not withdrawn
+- Full time jobs
+- Year 2011, 2013, or 2016
+- Is some sort of Executive or Physicist
+
+```{r}
+sample.map.filtered <- h1b.apps %>%
+    filter(CASE_STATUS == "CERTIFIED" &
+               FULL_TIME_POSITION == "Y" & 
+               (YEAR == 2011 | YEAR == 2013 | YEAR == 2016) & 
+               PREVAILING_WAGE > 100000 & 
+               grepl("executive|physicists", SOC_NAME, ignore.case = TRUE))
+
+leaflet(sample.map.filtered) %>% 
+    addTiles() %>%
+    addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
+```
+
+
