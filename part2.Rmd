@@ -23,6 +23,7 @@ str(h1b.apps)
 ## Geographic Exploration
 
 The code below generates a leaflet plot with frequency of applications. In an interactive setting, this map could include filters to view by:
+
 - Year
 - Application status
 - Employer name
