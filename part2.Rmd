@@ -1,0 +1,115 @@
+---
+title: "Visa Exploration - Part 2"
+output:
+  html_document:
+    df_print: paged
+---
+
+This document contains visualizations for part 2 of the STAT 331 final project.
+
+## Group Members
+
+- Sarthak Khillon
+- Jose Mendosa
+- Christina Walden
+
+
+## Setup
+```{r}
+library(tidyverse)
+library(readr)
+library(stringr)
+library(leaflet)
+library(ggplot2)
+```
+
+The data is slightly ordered--most early observations are from 2016, with some earlier years at the back of the file. We will first read in the entire file and then randomly sample 10K observations.
+```{r}
+raw.input <- read_csv("~/Desktop/DataScienceCourses/stat331/ShinyVisaExploration/h1b_kaggle.csv")
+```
+
+```{r}
+h1b.apps <- raw.input %>%
+    na.omit() %>%
+    sample_n(10000)
+
+str(h1b.apps)
+```
+
+
+## Geographic Exploration
+
+The code below generates a leaflet plot with frequency of applications. In an interactive setting, this map could include filters to view by:
+
+- Year
+- Application status
+- Employer name
+- SOC name
+- Job Title
+- Full Time/part time
+- Wage
+
+Below is the data without any filters:
+```{r}
+leaflet(h1b.apps) %>% 
+    addTiles() %>%
+    addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
+```
+
+Below is an example of the same map with the following filters:
+
+- Application Certified and not withdrawn
+- Full time jobs
+- Year 2011, 2013, or 2016
+- Is some sort of Executive or Physicist
+
+```{r}
+sample.map.filtered <- h1b.apps %>%
+    filter(CASE_STATUS == "CERTIFIED" &
+               FULL_TIME_POSITION == "Y" & 
+               (YEAR == 2011 | YEAR == 2013 | YEAR == 2016) & 
+               PREVAILING_WAGE > 100000 & 
+               grepl("executive|physicists", SOC_NAME, ignore.case = TRUE))
+
+leaflet(sample.map.filtered) %>% 
+    addTiles() %>%
+    addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
+```
+
+## Wages
+
+An interesting metric is how wages for the same position have changed over time. Below we find the most common SOC in our sample and plot the change in its average wage over time.
+```{r}
+most.common.soc <- tail(names(sort(table(h1b.apps$SOC_NAME))), 1)
+most.common.soc
+```
+
+```{r}
+h1b.apps %>%
+    filter(SOC_NAME == most.common.soc) %>%
+    group_by(YEAR) %>%
+    summarize(av.wage.by.year = mean(PREVAILING_WAGE)) %>%
+    ggplot(aes(x = YEAR, y = av.wage.by.year)) +
+    geom_line() +
+    xlab("Year") +
+    ylab("Average Wage")
+```
+
+## Application Status
+Finally, we look at application status with two visualizations.
+
+Below is a pie chart where the user may filter status by years 2011 and 2015.
+```{r}
+h1b.apps %>%
+    filter(YEAR == 2011 | YEAR == 2015) %>%
+    ggplot(aes(x = "", y = CASE_STATUS, fill = CASE_STATUS)) +
+    geom_bar(width = 1, stat = "identity") +
+    coord_polar("y", start = 0) +
+    xlab(NULL) +
+    ylab(NULL) +
+    theme(axis.text = element_blank(),
+          axis.ticks = element_blank(),
+          panel.grid = element_blank())
+```
+
+
