@@ -65,7 +65,7 @@ shinyUI(fluidPage(
 
             # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
             selectizeInput("EMPLOYER_NAME", "Employer Name",
-                           choices = visa$EMPLOYER_NAME,
+                           choices = ,
                            options = list(maxItems = 1)),
             br(),
 
