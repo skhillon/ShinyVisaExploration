@@ -34,12 +34,6 @@ if (!require("shiny")) {
 }
 library(shiny)
 
-##### CONSTANTS #####
-MIN_WAGE <- 0
-MAX_WAGE < 30000000
-MIN_YEAR <- 2011
-MAX_YEAR <- 2018
-
 ##### UI #####
 
 shinyUI(fluidPage(
