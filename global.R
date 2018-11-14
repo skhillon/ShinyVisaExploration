@@ -1,7 +1,7 @@
-visa <- read_csv("visas.csv")
+visas <- read_csv("visas.csv")
 
-MIN.WAGE <- min(visa$PREVAILING_WAGE)
-MAX.WAGE <- max(visa$PREVAILING_WAGE)
+MIN.WAGE <- min(visas$PREVAILING_WAGE)
+MAX.WAGE <- max(visas$PREVAILING_WAGE)
 
-MIN.YEAR <- min(visa$YEAR)
-MAX.YEAR <- max(visa$YEAR)
+MIN.YEAR <- min(visas$YEAR)
+MAX.YEAR <- max(visas$YEAR)
