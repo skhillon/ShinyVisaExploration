@@ -34,12 +34,6 @@ if (!require("shiny")) {
 }
 library(shiny)
 
-##### CONSTANTS #####
-MIN_WAGE <- 0
-MAX_WAGE < 30000000
-MIN_YEAR <- 2011
-MAX_YEAR <- 2018
-
 ##### UI #####
 
 shinyUI(fluidPage(
@@ -65,19 +59,19 @@ shinyUI(fluidPage(
 
             # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
             selectizeInput("EMPLOYER_NAME", "Employer Name",
-                           choices = visa$EMPLOYER_NAME,
+                           choices = visas$EMPLOYER_NAME,
                            options = list(maxItems = 1)),
             br(),
 
             # Similarly, there are also many values for SOC_NAME. This will also be a text field.
             selectizeInput("SOC_NAME", "SOC Name",
-                           choices = visa$SOC_NAME,
+                           choices = visas$SOC_NAME,
                            options = list(maxItems = 1)),
             br(),
 
             # Another text field for JOB_TITLE
             selectizeInput("JOB_TITLE", "Job Title",
-                           choices = visa$JOB_TITLE,
+                           choices = visas$JOB_TITLE,
                            options = list(maxItems = 1)),
             br(),
 
@@ -87,13 +81,13 @@ shinyUI(fluidPage(
             br(),
 
             # PREVAILING_WAGE will be an inclusive slider.
-            sliderInput("PREVAILING_WAGE", "Wage Range", min = MIN_WAGE,
-                        max = MAX_WAGE, value = c(MIN_WAGE, MAX_WAGE)),
+            sliderInput("PREVAILING_WAGE", "Wage Range", min = MIN.WAGE,
+                        max = MAX.WAGE, value = c(MIN.WAGE, MAX.WAGE)),
             br(),
 
             # There are very few years that are unique in the dataset, so this will be an inclusive slider.
-            sliderInput("YEAR", "Year Range", min = MIN_YEAR,
-                        max = MAX_YEAR, value = c(MIN_YEAR, MAX_YEAR))
+            sliderInput("YEAR", "Year Range", min = MIN.YEAR,
+                        max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR))
         ),
 
         mainPanel(
