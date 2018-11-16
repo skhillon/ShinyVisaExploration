@@ -36,6 +36,7 @@ library(shiny)
 
 visas <- read_csv("visas_1.csv")
 
+#most.common.soc <- tail(names(sort(table(visas$SOC_NAME))), 1)
 most.common.soc <- visas$SOC_NAME %>%
    toupper() %>%
    table() %>% 

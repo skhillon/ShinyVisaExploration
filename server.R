@@ -1,22 +1,8 @@
-#### Data processing ####
-# most.common.soc <- visas$SOC_NAME %>%
-#    toupper() %>%
-#    table() %>% 
-#    sort() %>%
-#    names() %>%
-#    tail(1)
-#most.common.soc <- names(sortedSOC)[1]
-
-#most.common.soc <- tail(names(sort(table(visas$SOC_NAME))), 1)
-#most.common.soc
-
-#### End Data Processing ####
+statusPalette <- brewer.pal(4, "Greens")
 
 function(input, output, session) {
     #### Interactive Geography Map #####
-    #sample.map.filtered <-
-
-    output$geographicVis <- renderPlot({
+    output$geographicVis <- renderLeaflet({
         leaflet(visas %>%
                     filter(CASE_STATUS == input$CASE_STATUS &
                                FULL_TIME_POSITION == input$FULL_TIME_POSITION &
@@ -46,10 +32,13 @@ function(input, output, session) {
 
     output$acceptVis <- renderPlot({
         visas %>%
-            filter(between(visas$YEAR, input$YEAR, input$YEAR)) %>%
-            filter(between(visas$PREVAILING_WAGE, input$wage1, input$wage2)) %>%
-            ggplot(aes(x = input$var1, y = visas$PREVAILING_WAGE)) +
-            geom_smooth(method = "lm")
+            filter(YEAR >= min(input$YEAR) &
+                      YEAR <= max(input$YEAR) & 
+                      visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE) &
+                      visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE)) %>%
+            ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE")) +
+            geom_point(color = "red") #+
+            #geom_smooth(method = "lm", color = "red")
     })
     session$onSessionEnded(stopApp)
 }

@@ -54,7 +54,7 @@ shinyUI(fluidPage(
 
         mainPanel(
             tabsetPanel(type = "tabs",
-                        tabPanel("Interactive Map", plotOutput("geographicVis")),
+                        tabPanel("Interactive Map", leafletOutput("geographicVis")),
                         tabPanel("Top Earners", plotOutput("wageVis")),
                         tabPanel("Acceptance Rates", plotOutput("acceptVis")))
         )
