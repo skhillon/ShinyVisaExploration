@@ -34,7 +34,14 @@ if (!require("shiny")) {
 }
 library(shiny)
 
-visas <- read_csv("visas.csv")
+visas <- read_csv("visas_1.csv")
+
+most.common.soc <- visas$SOC_NAME %>%
+   toupper() %>%
+   table() %>% 
+   sort() %>%
+   names() %>%
+   tail(1)
 
 MIN.WAGE <- min(visas$PREVAILING_WAGE)
 MAX.WAGE <- max(visas$PREVAILING_WAGE)

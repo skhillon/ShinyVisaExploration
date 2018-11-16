@@ -1,14 +1,14 @@
 #### Data processing ####
-sortedSOC <- visas$SOC_NAME %>%
-    toupper() %>%
-    table() %>% sort(decreasing = T)
-most.common.soc <- names(sortedSOC)[1]
+# most.common.soc <- visas$SOC_NAME %>%
+#    toupper() %>%
+#    table() %>% 
+#    sort() %>%
+#    names() %>%
+#    tail(1)
+#most.common.soc <- names(sortedSOC)[1]
 
-most.common.soc <- tail(names(sort(table(visas$SOC_NAME))), 1)
+#most.common.soc <- tail(names(sort(table(visas$SOC_NAME))), 1)
 #most.common.soc
-
-min.year <- min(visas$YEAR)
-max.year <- max(visas$YEAR)
 
 #### End Data Processing ####
 
@@ -32,7 +32,8 @@ function(input, output, session) {
     #### Pie Chart ####
     output$wageVis <- renderPlot({
         visas %>%
-            filter(YEAR == input$YEAR) %>%
+            filter(YEAR >= min(input$YEAR) &
+                      YEAR <= max(input$YEAR)) %>%
             ggplot(aes(x = "", y = input$CASE_STATUS, fill = input$CASE_STATUS)) +
             geom_bar(width = 1, stat = "identity") +
             coord_polar("y", start = 0) +
@@ -45,7 +46,7 @@ function(input, output, session) {
 
     output$acceptVis <- renderPlot({
         visas %>%
-            filter(bewteen(visas$YEAR, input$YEAR, input$YEAR)) %>%
+            filter(between(visas$YEAR, input$YEAR, input$YEAR)) %>%
             filter(between(visas$PREVAILING_WAGE, input$wage1, input$wage2)) %>%
             ggplot(aes(x = input$var1, y = visas$PREVAILING_WAGE)) +
             geom_smooth(method = "lm")
