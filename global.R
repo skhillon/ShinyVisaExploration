@@ -34,7 +34,13 @@ if (!require("shiny")) {
 }
 library(shiny)
 
-visas <- read_csv("visas_1.csv")
+if (!require("RColorBrewer")) {
+   install.packages("RColorBrewer")
+}
+library(RColorBrewer)
+
+visas <- read_csv("visas_sk.csv")
+#visas <- read_csv("minVisas.csv")
 
 #most.common.soc <- tail(names(sort(table(visas$SOC_NAME))), 1)
 most.common.soc <- visas$SOC_NAME %>%
@@ -49,3 +55,5 @@ MAX.WAGE <- max(visas$PREVAILING_WAGE)
 
 MIN.YEAR <- min(visas$YEAR)
 MAX.YEAR <- max(visas$YEAR)
+
+statusPalette <- brewer.pal(4, "Set1")
