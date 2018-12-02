@@ -21,7 +21,7 @@ function(input, output, session) {
             ggplot(aes(x = "", y = input$CASE_STATUS, fill = CASE_STATUS)) +
             geom_bar(width = 1, stat = "identity") +
             coord_polar("y", start = 0) +
-            xlab("") +
+            xlab(NULL) +
             ylab("Case Status") +
             theme(axis.text = element_blank(),
                   axis.ticks = element_blank(),
@@ -33,7 +33,7 @@ function(input, output, session) {
     output$acceptVis <- renderPlot({
         visas %>%
             filter(YEAR >= min(input$YEAR) &
-                      YEAR <= max(input$YEAR) & 
+                      YEAR <= max(input$YEAR) &
                       visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE) &
                       visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE)) %>%
             ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE", color = "CASE_STATUS")) +
