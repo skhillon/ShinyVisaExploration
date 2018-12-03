@@ -42,7 +42,7 @@ function(input, output, session) {
                       visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE) &
                       visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE)) %>%
             ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE", color = "CASE_STATUS")) +
-            geom_point(color = "red") +
+            geom_bar(stat = "identity") +
             labs(x = "Case Status", y = "Prevailing Wage") #+
             #geom_smooth(method = "lm", color = "red")
     })
