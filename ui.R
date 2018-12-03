@@ -20,14 +20,59 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                        p("This application lets you explore H1-B Visa Petitions from 2011-2016.
                       Click on any of the tabs to filter and visualize the data."),
                        br(),
-                       p("The last tab lets you enter your information and then
-                      produces the likelihood that your visa application would be accepted."),
-                       br(),
                        em("Produced by Sarthak Khillon, Juan Moreno, and Christina Walden for STAT 331 with Professor Hunter Glanz.")
                    ),
 
                    mainPanel(
-                       h2("How to Use")
+                       h2("Overview"),
+                       p("The data set for this application comes from",
+                         a(href = "https://www.kaggle.com/gpreda/h-1b-visa-applications", "Kaggle."),
+                         "Originally, this data set had over 3 million observations.
+                         However, for performance reasons, we use a subset of 10,000 observations."),
+                       div(
+                           p("Each tab performs a different visualization. Descriptions are as follows:",
+                             tags$ul(
+                                 tags$li(tags$b("Interactive Map:"), "Shows where applicants intended to go."),
+                                 tags$li(tags$b("Acceptance Rates:"), "Displays a pie chart of case status. Gives a good idea of what the case status distrubution looks like."),
+                                 tags$li(tags$b("Top Earners:"), "Displays a bar chart of earnings by case status.")
+                             )
+                           )
+                       ),
+                       br(),
+                       h3("Personalized Results (optional)"),
+                       p("Each tab also has the ability to show what", em("your"),
+                         "results would be! Simply input your information in the form below,
+                         and every tab will display your projected results next to the main visualization component."),
+                       div(
+                           id = "user_form",
+
+                           selectizeInput("userEmployer", "Employer",
+                                          choices = visas$EMPLOYER_NAME,
+                                          options = list(
+                                              placeholder = "Select from dropdown",
+                                              maxItems = 1
+                                          )),
+
+                           selectizeInput("userSOC", "SOC Category",
+                                          choices = visas$SOC_NAME,
+                                          options = list(
+                                              placeholder = "Select from dropdown",
+                                              maxItems = 1
+                                          )),
+
+                           selectizeInput("userJobTitle", "Job Title",
+                                          choices = visas$JOB_TITLE,
+                                          options = list(
+                                              placeholder = "Select from dropdown",
+                                              maxItems = 1
+                                          )),
+
+                           checkboxInput("userFullTime", "Full Time?"),
+
+                           sliderInput("userWage", "Annual Wage",
+                                       min = MIN.WAGE, max = MAX.WAGE,
+                                       value = MIN.WAGE)
+                       )
                    )
                )),
 
