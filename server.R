@@ -41,7 +41,7 @@ function(input, output, session) {
                       YEAR <= max(input$YEAR_3) &
                       visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE_3) &
                       visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE_3)) %>%
-            ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE", color = "CASE_STATUS")) +
+            ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE", fill = "CASE_STATUS")) +
             geom_bar(stat = "identity") +
             labs(x = "Case Status", y = "Prevailing Wage") +
             scale_fill_manual(values = statusPalette) #+
