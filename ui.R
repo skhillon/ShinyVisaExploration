@@ -80,7 +80,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
       #Pie chart
       tabPanel(
-         "Top Earners",
+         "Acceptance Rates",
          sidebarLayout(
             sidebarPanel(
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
@@ -117,11 +117,11 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                               ticks = T, sep = "")
                ),
                   mainPanel(
-                     plotOutput("wageVis")
+                     plotOutput("acceptVis")
                   )
                )
          ),
-      tabPanel("Acceptance Rates",
+      tabPanel("Top Earners",
                sidebarLayout(
                   sidebarPanel(
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
@@ -157,7 +157,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
                               ticks = T, sep = "")
                ),
-                  mainPanel(plotOutput("acceptVis"))
+                  mainPanel(plotOutput("wageVis"))
                   )
                )
       )

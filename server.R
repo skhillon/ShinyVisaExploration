@@ -16,7 +16,7 @@ function(input, output, session) {
     })
 
     #### Pie Chart ####
-    output$wageVis <- renderPlot({
+    output$acceptVis <- renderPlot({
         visas %>%
             filter(YEAR >= min(input$YEAR_PIE) &
                       YEAR <= max(input$YEAR_PIE) &
@@ -34,7 +34,7 @@ function(input, output, session) {
     })
 
     #### Bar chart ####
-    output$acceptVis <- renderPlot({
+    output$wageVis <- renderPlot({
         visas %>%
             filter(YEAR >= min(input$YEAR_3) &
                       YEAR <= max(input$YEAR_3) &
