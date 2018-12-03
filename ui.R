@@ -80,9 +80,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                  selected = "SOFTWARE ENGINEER"),
                   br(),
 
-                  # Full Time Position is either a yes or a no, so this is a 2-button radio section.
+                  # Full Time Position is either a yes or a no, so this is a 3-button radio section.
                   radioButtons("FULL_TIME_POSITION_MAP", "Job Type",
-                               c("All", "Full Time", "Part Time")),
+                               choices = list("All" = "", "Full Time" = "Y", "Part Time" = "N")),
                   br(),
 
                   # PREVAILING_WAGE will be an inclusive slider.
@@ -122,9 +122,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                  options = list(maxItems = 1)),
                   br(),
 
-                  # Full Time Position is either a yes or a no, so this is a 2-button radio section.
+                  # Full Time Position is either a yes or a no, so this is a 3-button radio section.
                   radioButtons("FULL_TIME_POSITION_PIE", "Job Type",
-                               c("All", "Full Time", "Part Time")),
+                               choices = list("All" = "", "Full Time" = "Y", "Part Time" = "N")),
                   br(),
 
                   # PREVAILING_WAGE will be an inclusive slider.
@@ -165,7 +165,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
                   # Full Time Position is either a yes or a no, so this is a 2-button radio section.
                   radioButtons("FULL_TIME_POSITION_3", "Job Type",
-                               c("All", "Full Time", "Part Time")),
+                               choices = list("All" = "", "Full Time" = "Y", "Part Time" = "N")),
                   br(),
 
                   # PREVAILING_WAGE will be an inclusive slider.
