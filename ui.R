@@ -149,7 +149,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   #- Denied
                   # As such, this will be a checkbox element.
                      checkboxGroupInput(
-                        "CASE_STATUS", "Case Status",
+                        "CASE_STATUS_3", "Case Status",
                         choices = list(
                            "Certified-Withdrawn" = "CERTIFIED-WITHDRAWN",
                            "Certified" = "CERTIFIED",
@@ -161,35 +161,35 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                      hr(),
 
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
-                  selectizeInput("EMPLOYER_NAME", "Employer Name",
+                  selectizeInput("EMPLOYER_NAME_3", "Employer Name",
                                  choices = visas$EMPLOYER_NAME,
                                  options = list(maxItems = 1)),
                   br(),
 
                   # Similarly, there are also many values for SOC_NAME. This will also be a text field.
-                  selectizeInput("SOC_NAME", "SOC Name",
+                  selectizeInput("SOC_NAME_3", "SOC Name",
                                  choices = visas$SOC_NAME,
                                  options = list(maxItems = 1)),
                   br(),
 
                   # Another text field for JOB_TITLE
-                  selectizeInput("JOB_TITLE", "Job Title",
+                  selectizeInput("JOB_TITLE_3", "Job Title",
                                  choices = visas$JOB_TITLE,
                                  options = list(maxItems = 1)),
                   br(),
 
                   # Full Time Position is either a yes or a no, so this is a 2-button radio section.
-                  radioButtons("FULL_TIME_POSITION", "Job Type",
+                  radioButtons("FULL_TIME_POSITION_3", "Job Type",
                                c("All", "Full Time", "Part Time")),
                   br(),
 
                   # PREVAILING_WAGE will be an inclusive slider.
-                  sliderInput("PREVAILING_WAGE", "Wage Range", min = MIN.WAGE,
+                  sliderInput("PREVAILING_WAGE_3", "Wage Range", min = MIN.WAGE,
                               max = MAX.WAGE, value = c(MIN.WAGE, MAX.WAGE)),
                   br(),
 
                   # There are very few years that are unique in the dataset, so this will be an inclusive slider.
-                  sliderInput("YEAR", "Year Range", min = MIN.YEAR,
+                  sliderInput("YEAR_3", "Year Range", min = MIN.YEAR,
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
                               ticks = T, sep = "")
                ),

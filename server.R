@@ -2,7 +2,7 @@ function(input, output, session) {
     #### Interactive Geography Map #####
     output$geographicVis <- renderLeaflet({
         leaflet(visas %>%
-                    filter(CASE_STATUS %in% input$CASE_STATUS &
+                    filter(CASE_STATUS %in% input$CASE_STATUS_MAP &
                                #FULL_TIME_POSITION == input$FULL_TIME_POSITION &
                                YEAR >= min(input$YEAR_MAP) &
                                YEAR <= max(input$YEAR_MAP) &
@@ -37,13 +37,14 @@ function(input, output, session) {
     #### Bar chart ####
     output$acceptVis <- renderPlot({
         visas %>%
-            filter(YEAR >= min(input$YEAR) &
-                      YEAR <= max(input$YEAR) &
-                      visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE) &
-                      visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE)) %>%
+            filter(YEAR >= min(input$YEAR_3) &
+                      YEAR <= max(input$YEAR_3) &
+                      visas$PREVAILING_WAGE >= min(input$PREVAILING_WAGE_3) &
+                      visas$PREVAILING_WAGE <= max(input$PREVAILING_WAGE_3)) %>%
             ggplot(aes_string(x = "CASE_STATUS", y = "PREVAILING_WAGE", color = "CASE_STATUS")) +
             geom_bar(stat = "identity") +
-            labs(x = "Case Status", y = "Prevailing Wage") #+
+            labs(x = "Case Status", y = "Prevailing Wage") +
+            scale_fill_manual(values = statusPalette) #+
             #geom_smooth(method = "lm", color = "red")
     })
     session$onSessionEnded(stopApp)
