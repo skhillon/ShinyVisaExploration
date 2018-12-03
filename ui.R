@@ -83,24 +83,6 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
          "Top Earners",
          sidebarLayout(
             sidebarPanel(
-               # CASE_STATUS only has the following 4 values:
-               #- Certified-Withdrawn
-               #- Certified
-               #- Withdrawn
-               #- Denied
-               # As such, this will be a checkbox element.
-               checkboxGroupInput(
-                  "CASE_STATUS_PIE", "Case Status",
-                  choices = list(
-                     "Certified-Withdrawn" = "CERTIFIED-WITHDRAWN",
-                     "Certified" = "CERTIFIED",
-                     "Withdrawn" = "WITHDRAWN",
-                     "Denied" = "DENIED"
-                     ),
-                     selected = c("CERTIFIED-WITHDRAWN", "CERTIFIED", "WITHDRAWN", "DENIED")
-                  ),
-                  hr(),
-
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
                   selectizeInput("EMPLOYER_NAME_PIE", "Employer Name",
                                  choices = visas$EMPLOYER_NAME,
@@ -142,24 +124,6 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
       tabPanel("Acceptance Rates",
                sidebarLayout(
                   sidebarPanel(
-                  # CASE_STATUS only has the following 4 values:
-                  #- Certified-Withdrawn
-                  #- Certified
-                  #- Withdrawn
-                  #- Denied
-                  # As such, this will be a checkbox element.
-                     checkboxGroupInput(
-                        "CASE_STATUS_3", "Case Status",
-                        choices = list(
-                           "Certified-Withdrawn" = "CERTIFIED-WITHDRAWN",
-                           "Certified" = "CERTIFIED",
-                           "Withdrawn" = "WITHDRAWN",
-                           "Denied" = "DENIED"
-                        ),
-                        selected = c("CERTIFIED-WITHDRAWN", "CERTIFIED", "WITHDRAWN", "DENIED")
-                     ),
-                     hr(),
-
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
                   selectizeInput("EMPLOYER_NAME_3", "Employer Name",
                                  choices = visas$EMPLOYER_NAME,
