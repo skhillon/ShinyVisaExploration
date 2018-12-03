@@ -3,7 +3,7 @@ library(shinythemes)
 shinyUI(fluidPage(theme = shinytheme("paper"),
 
    # Application Title
-   titlePanel("Explore Visa Statuses"),
+   titlePanel("H1-B Visa Petitions, 2011-2016"),
 
    # Sidebar contains filters, which are the same regardless of visualization type.
    # Note that any radio elements will have `All` selected by default.
@@ -11,6 +11,27 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
    # If none are selected, then All will toggle every radio element to ON.
    tabsetPanel(
       type = "tabs",
+
+      # Overview Panel
+      tabPanel("Overview",
+               sidebarLayout(
+                   sidebarPanel(
+                       h3("Welcome!"),
+                       p("This application lets you explore H1-B Visa Petitions from 2011-2016.
+                      Click on any of the tabs to filter and visualize the data."),
+                       br(),
+                       p("The last tab lets you enter your information and then
+                      produces the likelihood that your visa application would be accepted."),
+                       br(),
+                       em("Produced by Sarthak Khillon, Juan Moreno, and Christina Walden for STAT 331 with Professor Hunter Glanz.")
+                   ),
+
+                   mainPanel(
+                       h2("How to Use")
+                   )
+               )),
+
+      # Leaflet Map
       tabPanel("Interactive Map",
                sidebarLayout(
                   sidebarPanel(
