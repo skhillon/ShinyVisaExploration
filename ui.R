@@ -101,34 +101,38 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                      selected = c("CERTIFIED-WITHDRAWN", "CERTIFIED", "WITHDRAWN", "DENIED")
                   ),
                   hr(),
-
+                  
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
                   selectizeInput("EMPLOYER_NAME_MAP", "Employer Name",
-                                 choices = visas$EMPLOYER_NAME,
+                                 choices = c("None", visas$EMPLOYER_NAME),
                                  options = list(
-                                     placeholder = "Try \"APPLE INC.\"",
-                                     maxItems = 1),
-                                 selected = "APPLE INC."),
+                                    placeholder = "Try \"APPLE INC.\"",
+                                    maxItems = 1),
+                                 selected = "None"
+                                 #selected = "APPLE INC."
+                  ),
                   br(),
-
+                  
                   # Similarly, there are also many values for SOC_NAME. This will also be a text field.
                   selectizeInput("SOC_NAME_MAP", "SOC Name",
-                                 choices = visas$SOC_NAME,
+                                 choices = c("None", visas$SOC_NAME),
                                  options = list(
-                                     placeholder = "Try \"Software Developers, Applications\"",
-                                     maxItems = 1),
-                                 selected = "Software Developers, Applications"),
+                                    placeholder = "Try \"Software Developers, Applications\"",
+                                    maxItems = 1),
+                                 selected = "None"),
+                  #selected = "Software Developers, Applications"),
                   br(),
-
+                  
                   # Another text field for JOB_TITLE
                   selectizeInput("JOB_TITLE_MAP", "Job Title",
-                                 choices = visas$JOB_TITLE,
+                                 choices = c("None", visas$JOB_TITLE),
                                  options = list(
-                                     placeholder = "Try \"SOFTWARE ENGINEER\"",
-                                     maxItems = 1),
-                                 selected = "SOFTWARE ENGINEER"),
+                                    placeholder = "Try \"SOFTWARE ENGINEER\"",
+                                    maxItems = 1),
+                                 selected = "None"),
+                  #selected = "SOFTWARE ENGINEER"),
                   br(),
-
+                  
                   # Full Time Position is either a yes or a no, so this is a 3-button radio section.
                   radioButtons("FULL_TIME_POSITION_MAP", "Job Type",
                                choices = list("All" = "", "Full Time" = "Y", "Part Time" = "N")),
@@ -149,29 +153,32 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   mainPanel(leafletOutput("geographicVis"))
                   )
                ),
-
+      
       #Pie chart
       tabPanel(
          "Acceptance Rates",
          sidebarLayout(
             sidebarPanel(
-                  # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
-                  selectizeInput("EMPLOYER_NAME_PIE", "Employer Name",
-                                 choices = visas$EMPLOYER_NAME,
-                                 options = list(maxItems = 1)),
-                  br(),
-
-                  # Similarly, there are also many values for SOC_NAME. This will also be a text field.
-                  selectizeInput("SOC_NAME_PIE", "SOC Name",
-                                 choices = visas$SOC_NAME,
-                                 options = list(maxItems = 1)),
-                  br(),
-
-                  # Another text field for JOB_TITLE
-                  selectizeInput("JOB_TITLE_PIE", "Job Title",
-                                 choices = visas$JOB_TITLE,
-                                 options = list(maxItems = 1)),
-                  br(),
+               # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
+               selectizeInput("EMPLOYER_NAME_PIE", "Employer Name",
+                              choices = c("None", visas$EMPLOYER_NAME),
+                              options = list(maxItems = 1),
+                              selected = "None"),
+               br(),
+               
+               # Similarly, there are also many values for SOC_NAME. This will also be a text field.
+               selectizeInput("SOC_NAME_PIE", "SOC Name",
+                              choices = c("None", visas$SOC_NAME),
+                              options = list(maxItems = 1),
+                              selected = "None"),
+               br(),
+               
+               # Another text field for JOB_TITLE
+               selectizeInput("JOB_TITLE_PIE", "Job Title",
+                              choices = c("None", visas$JOB_TITLE),
+                              options = list(maxItems = 1),
+                              selected = "None"),
+               br(),
 
                   # Full Time Position is either a yes or a no, so this is a 3-button radio section.
                   radioButtons("FULL_TIME_POSITION_PIE", "Job Type",
@@ -198,23 +205,26 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
       tabPanel("Top Earners",
                sidebarLayout(
                   sidebarPanel(
-                  # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
-                  selectizeInput("EMPLOYER_NAME_3", "Employer Name",
-                                 choices = visas$EMPLOYER_NAME,
-                                 options = list(maxItems = 1)),
-                  br(),
-
-                  # Similarly, there are also many values for SOC_NAME. This will also be a text field.
-                  selectizeInput("SOC_NAME_3", "SOC Name",
-                                 choices = visas$SOC_NAME,
-                                 options = list(maxItems = 1)),
-                  br(),
-
-                  # Another text field for JOB_TITLE
-                  selectizeInput("JOB_TITLE_3", "Job Title",
-                                 choices = visas$JOB_TITLE,
-                                 options = list(maxItems = 1)),
-                  br(),
+                     # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
+                     selectizeInput("EMPLOYER_NAME_3", "Employer Name",
+                                    choices = c("None", visas$EMPLOYER_NAME),
+                                    options = list(maxItems = 1),
+                                    selected = "None"),
+                     br(),
+                     
+                     # Similarly, there are also many values for SOC_NAME. This will also be a text field.
+                     selectizeInput("SOC_NAME_3", "SOC Name",
+                                    choices = c("None", visas$SOC_NAME),
+                                    options = list(maxItems = 1),
+                                    selected = "None"),
+                     br(),
+                     
+                     # Another text field for JOB_TITLE
+                     selectizeInput("JOB_TITLE_3", "Job Title",
+                                    choices = c("None", visas$JOB_TITLE),
+                                    options = list(maxItems = 1),
+                                    selected = "None"),
+                     br(),
 
                   # Full Time Position is either a yes or a no, so this is a 2-button radio section.
                   radioButtons("FULL_TIME_POSITION_3", "Job Type",
