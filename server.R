@@ -20,6 +20,7 @@ function(input, output, session) {
         visas %>%
             filter(YEAR >= min(input$YEAR_PIE) &
                       YEAR <= max(input$YEAR_PIE) &
+                       CASE_STATUS %in% input$CASE_STATUS_PIE &
                       PREVAILING_WAGE >= min(input$PREVAILING_WAGE_PIE) &
                       PREVAILING_WAGE <= max(input$PREVAILING_WAGE_PIE)) %>%
             ggplot(aes(x = "", y = CASE_STATUS, fill = CASE_STATUS)) +
