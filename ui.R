@@ -1,4 +1,6 @@
-shinyUI(fluidPage(
+library(shinythemes)
+
+shinyUI(fluidPage(theme = shinytheme("paper"),
 
     # Application Title
     titlePanel("Explore Visa Statuses"),
