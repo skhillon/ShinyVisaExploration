@@ -3,9 +3,9 @@ function(input, output, session) {
     output$geographicVis <- renderLeaflet({
         leaflet(visas %>%
                     filter(
-                       if (input$FULL_TIME_POSITION_MAP != "") 
+                       if (input$FULL_TIME_POSITION_MAP != "")
                           FULL_TIME_POSITION == input$FULL_TIME_POSITION_MAP
-                       else 
+                       else
                           TRUE
                     ) %>%
                     filter(CASE_STATUS %in% input$CASE_STATUS_MAP &
@@ -25,9 +25,9 @@ function(input, output, session) {
     output$acceptVis <- renderPlot({
         visas %>%
           filter(
-             if (input$FULL_TIME_POSITION_PIE != "") 
+             if (input$FULL_TIME_POSITION_PIE != "")
                 FULL_TIME_POSITION == input$FULL_TIME_POSITION_PIE
-             else 
+             else
                 TRUE
           ) %>%
             filter(YEAR >= min(input$YEAR_PIE) &
@@ -49,9 +49,9 @@ function(input, output, session) {
     output$wageVis <- renderPlot({
         visas %>%
             filter(
-               if (input$FULL_TIME_POSITION_3 != "") 
-                  FULL_TIME_POSITION == input$FULL_TIME_POSITION_3 
-               else 
+               if (input$FULL_TIME_POSITION_3 != "")
+                  FULL_TIME_POSITION == input$FULL_TIME_POSITION_3
+               else
                   TRUE
                ) %>%
             filter(YEAR >= min(input$YEAR_3) &
@@ -66,6 +66,38 @@ function(input, output, session) {
             scale_fill_manual(values = statusPalette) #+
             #geom_smooth(method = "lm", color = "red")
     })
+
+    #### Reset Filter Buttons ####
+    observeEvent(input$mapResetFilters, {
+        reset("CASE_STATUS_MAP")
+
+        map_tags <- c("EMPLOYER_NAME_MAP", "SOC_NAME_MAP", "JOB_TITLE_MAP",
+                      "FULL_TIME_POSITION_MAP", "PREVAILING_WAGE_MAP", "YEAR_MAP")
+
+        for (tag in map_tags) {
+            reset(tag)
+        }
+    })
+
+    observeEvent(input$acceptResetFilters, {
+        accept_tags <- c("EMPLOYER_NAME_PIE", "SOC_NAME_PIE", "JOB_TITLE_PIE",
+                         "FULL_TIME_POSITION_PIE", "PREVAILING_WAGE_PIE", "YEAR_PIE")
+
+        for (tag in accept_tags) {
+            reset(tag)
+        }
+    })
+
+    observeEvent(input$wageResetFilters, {
+        wage_tags <- c("EMPLOYER_NAME_3", "SOC_NAME_3", "JOB_TITLE_3",
+                         "FULL_TIME_POSITION_3", "PREVAILING_WAGE_3", "YEAR_3")
+
+        for (tag in wage_tags) {
+            reset(tag)
+        }
+    })
+
+    # Automatically stop app when R session terminates.
     session$onSessionEnded(stopApp)
 }
 

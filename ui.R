@@ -1,6 +1,7 @@
 library(shinythemes)
 
 shinyUI(fluidPage(theme = shinytheme("paper"),
+   useShinyjs(), # Initialize for usage.
 
    # Application Title
    titlePanel("H1-B Visa Petitions, 2011-2016"),
@@ -141,7 +142,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   # There are very few years that are unique in the dataset, so this will be an inclusive slider.
                   sliderInput("YEAR_MAP", "Year Range", min = MIN.YEAR,
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
-                              ticks = T, sep = "")
+                              ticks = T, sep = ""),
+                  br(),
+                  actionButton("mapResetFilters", "Reset Filters")
                ),
                   mainPanel(leafletOutput("geographicVis"))
                   )
@@ -183,7 +186,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   # There are very few years that are unique in the dataset, so this will be an inclusive slider.
                   sliderInput("YEAR_PIE", "Year Range", min = MIN.YEAR,
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
-                              ticks = T, sep = "")
+                              ticks = T, sep = ""),
+                  br(),
+                  actionButton("acceptResetFilters", "Reset Filters")
                ),
                   mainPanel(
                      plotOutput("acceptVis")
@@ -224,7 +229,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   # There are very few years that are unique in the dataset, so this will be an inclusive slider.
                   sliderInput("YEAR_3", "Year Range", min = MIN.YEAR,
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
-                              ticks = T, sep = "")
+                              ticks = T, sep = ""),
+                  br(),
+                  actionButton("wageResetFilters", "Reset Filters")
                ),
                   mainPanel(plotOutput("wageVis"))
                   )

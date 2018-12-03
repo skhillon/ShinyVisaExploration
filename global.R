@@ -11,6 +11,7 @@ library(ggplot2)
 library(shiny)
 library(RColorBrewer)
 library(tools)
+library(shinyjs)
 
 load("visa_info.RData")
 
