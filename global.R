@@ -12,3 +12,4 @@ library(shiny)
 library(RColorBrewer)
 
 load("visa_info.RData")
+statusPalette <- brewer.pal(4, "Set1")

@@ -2,7 +2,7 @@ library(tidyverse)
 library(readr)
 library(RColorBrewer)
 
-visas <- read_csv("visas_sk.csv")
+visas <- read_csv("/Users/SarthakKhillon/Desktop/DataScienceCourses/stat331/ShinyVisaExploration/visas_sk.csv")
 
 most.common.soc <- visas$SOC_NAME %>%
     toupper() %>%
@@ -17,4 +17,3 @@ MAX.WAGE <- max(visas$PREVAILING_WAGE)
 MIN.YEAR <- min(visas$YEAR)
 MAX.YEAR <- max(visas$YEAR)
 
-statusPalette <- brewer.pal(4, "Set1")
