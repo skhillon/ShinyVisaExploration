@@ -2,13 +2,15 @@ function(input, output, session) {
     #### Interactive Geography Map #####
     output$geographicVis <- renderLeaflet({
         leaflet(visas %>%
-                    filter(CASE_STATUS == input$CASE_STATUS &
+                    filter(CASE_STATUS %in% input$CASE_STATUS &
                                #FULL_TIME_POSITION == input$FULL_TIME_POSITION &
-                               YEAR >= MIN.YEAR &
-                               YEAR <= MAX.YEAR &
-                               PREVAILING_WAGE >= MIN.WAGE &
-                               PREVAILING_WAGE <= MAX.WAGE &
-                               grepl(input$SOC_NAME, SOC_NAME, ignore.case = TRUE))) %>%
+                               YEAR >= min(input$YEAR_MAP) &
+                               YEAR <= max(input$YEAR_MAP) &
+                               PREVAILING_WAGE >= min(input$PREVAILING_WAGE_MAP) &
+                               PREVAILING_WAGE <= max(input$PREVAILING_WAGE_MAP) #&
+                               #grepl(input$SOC_NAME, SOC_NAME, ignore.case = TRUE)
+                           )
+                ) %>%
             addTiles() %>%
             addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
     })
@@ -16,9 +18,12 @@ function(input, output, session) {
     #### Pie Chart ####
     output$wageVis <- renderPlot({
         visas %>%
-            filter(YEAR >= min(input$YEAR) &
-                      YEAR <= max(input$YEAR)) %>%
-            ggplot(aes(x = "", y = input$CASE_STATUS, fill = CASE_STATUS)) +
+            filter(YEAR >= min(input$YEAR_PIE) &
+                      YEAR <= max(input$YEAR_PIE) &
+                      CASE_STATUS %in% input$CASE_STATUS_PIE &
+                      PREVAILING_WAGE >= min(input$PREVAILING_WAGE_PIE) &
+                      PREVAILING_WAGE <= max(input$PREVAILING_WAGE_PIE)) %>%
+            ggplot(aes(x = "", y = CASE_STATUS, fill = CASE_STATUS)) +
             geom_bar(width = 1, stat = "identity") +
             coord_polar("y", start = 0) +
             xlab(NULL) +
@@ -29,7 +34,7 @@ function(input, output, session) {
             scale_fill_manual(values = statusPalette)
     })
 
-    #
+    #### Bar chart ####
     output$acceptVis <- renderPlot({
         visas %>%
             filter(YEAR >= min(input$YEAR) &
