@@ -80,7 +80,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
       #Pie chart
       tabPanel(
-         "Top Earners",
+         "Acceptance Rates",
          sidebarLayout(
             sidebarPanel(
                # CASE_STATUS only has the following 4 values:
@@ -135,11 +135,11 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                               ticks = T, sep = "")
                ),
                   mainPanel(
-                     plotOutput("wageVis")
+                     plotOutput("acceptVis")
                   )
                )
          ),
-      tabPanel("Acceptance Rates",
+      tabPanel("Top Earners",
                sidebarLayout(
                   sidebarPanel(
                   # CASE_STATUS only has the following 4 values:
@@ -193,7 +193,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                               max = MAX.YEAR, value = c(MIN.YEAR, MAX.YEAR), step = 1,
                               ticks = T, sep = "")
                ),
-                  mainPanel(plotOutput("acceptVis"))
+                  mainPanel(plotOutput("wageVis"))
                   )
                )
       )
