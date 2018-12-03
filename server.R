@@ -3,25 +3,25 @@ function(input, output, session) {
    output$geographicVis <- renderLeaflet({
       leaflet(visas %>%
                  filter(
-                    {if (input$EMPLOYER_NAME_MAP != "None")
+                    {if (input$EMPLOYER_NAME_MAP != "")
                        grepl(input$EMPLOYER_NAME_MAP, 
                              EMPLOYER_NAME, ignore.case = TRUE)
                        else
                           TRUE} &
-                          {if (input$SOC_NAME_MAP != "None")
-                             grepl(input$SOC_NAME_MAP, 
-                                   SOC_NAME, ignore.case = TRUE)
-                             else
-                                TRUE} &
-                                {if (input$JOB_TITLE_MAP != "None")
-                                   grepl(input$JOB_TITLE_MAP, 
-                                         JOB_TITLE, ignore.case = TRUE)
-                                   else
-                                      TRUE} &
-                                      {if (input$FULL_TIME_POSITION_MAP != "")
-                                         FULL_TIME_POSITION == input$FULL_TIME_POSITION_MAP
-                                         else
-                                            TRUE} &
+                    {if (input$SOC_NAME_MAP != "")
+                       grepl(input$SOC_NAME_MAP, 
+                             SOC_NAME, ignore.case = TRUE)
+                       else
+                          TRUE} &
+                    {if (input$JOB_TITLE_MAP != "")
+                       grepl(input$JOB_TITLE_MAP, 
+                             JOB_TITLE, ignore.case = TRUE)
+                       else
+                          TRUE} &
+                    {if (input$FULL_TIME_POSITION_MAP != "")
+                       FULL_TIME_POSITION == input$FULL_TIME_POSITION_MAP
+                       else
+                          TRUE} &
                        CASE_STATUS %in% input$CASE_STATUS_MAP &
                        YEAR >= min(input$YEAR_MAP) &
                        YEAR <= max(input$YEAR_MAP) &
@@ -37,25 +37,25 @@ function(input, output, session) {
    output$acceptVis <- renderPlot({
       visas %>%
          filter(
-            {if (input$EMPLOYER_NAME_PIE != "None")
+            {if (input$EMPLOYER_NAME_PIE != "")
                grepl(input$EMPLOYER_NAME_PIE, 
                      EMPLOYER_NAME, ignore.case = TRUE)
                else
                   TRUE} &
-                  {if (input$SOC_NAME_PIE != "None")
-                     grepl(input$SOC_NAME_PIE, 
-                           SOC_NAME, ignore.case = TRUE)
-                     else
-                        TRUE} &
-                        {if (input$JOB_TITLE_PIE != "None")
-                           grepl(input$JOB_TITLE_PIE, 
-                                 JOB_TITLE, ignore.case = TRUE)
-                           else
-                              TRUE} &
-                              {if (input$FULL_TIME_POSITION_PIE != "") 
-                                 FULL_TIME_POSITION == input$FULL_TIME_POSITION_PIE
-                                 else 
-                                    TRUE} &
+            {if (input$SOC_NAME_PIE != "")
+               grepl(input$SOC_NAME_PIE, 
+                     SOC_NAME, ignore.case = TRUE)
+               else
+                  TRUE} &
+            {if (input$JOB_TITLE_PIE != "")
+               grepl(input$JOB_TITLE_PIE, 
+                     JOB_TITLE, ignore.case = TRUE)
+               else
+                  TRUE} &
+            {if (input$FULL_TIME_POSITION_PIE != "") 
+               FULL_TIME_POSITION == input$FULL_TIME_POSITION_PIE
+               else 
+                  TRUE} &
                YEAR >= min(input$YEAR_PIE) &
                YEAR <= max(input$YEAR_PIE) &
                PREVAILING_WAGE >= min(input$PREVAILING_WAGE_PIE) &
@@ -79,18 +79,18 @@ function(input, output, session) {
                FULL_TIME_POSITION == input$FULL_TIME_POSITION_3 
                else 
                   TRUE} &
-                  {if (input$SOC_NAME_3 != "None") 
-                     SOC_NAME == input$SOC_NAME_3 
-                     else 
-                        TRUE} &
-                        {if (input$JOB_TITLE_3 != "None") 
-                           JOB_TITLE == input$JOB_TITLE_3 
-                           else 
-                              TRUE} &
-                              {if (input$EMPLOYER_NAME_3 != "None") 
-                                 EMPLOYER_NAME == input$EMPLOYER_NAME_3 
-                                 else 
-                                    TRUE} &
+            {if (input$SOC_NAME_3 != "") 
+               SOC_NAME == input$SOC_NAME_3 
+               else 
+                  TRUE} &
+            {if (input$JOB_TITLE_3 != "") 
+               JOB_TITLE == input$JOB_TITLE_3 
+               else 
+                  TRUE} &
+            {if (input$EMPLOYER_NAME_3 != "") 
+               EMPLOYER_NAME == input$EMPLOYER_NAME_3 
+               else 
+                  TRUE} &
                YEAR >= min(input$YEAR_3) &
                YEAR <= max(input$YEAR_3) &
                PREVAILING_WAGE >= min(input$PREVAILING_WAGE_3) &
