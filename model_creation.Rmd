@@ -8,7 +8,7 @@ output:
 ```{r}
 library(tidyverse)  # Misc tidy data wrapper package.
 library(tools)  # Only used for toTitleCase()
-library(class)  # KNN model  
+library(caret)  # KNN model  
 library(ggplot2)  # Plotting
 ```
 
@@ -31,7 +31,7 @@ Since KNNs do not continuously "learn" and dimensionality is low, it is a useful
 Therefore, we also don't need to split data into training and testing because we will not be changing the number of clusters.
 Source: https://dzone.com/refcardz/machine-learning-predictive?chapter=9
 ```{r}
-num_cases <- unique(visas$CASE_STATUS)
+num_cases <- length(unique(visas$CASE_STATUS))
 set.seed(37)
 visa_colnames <- colnames(visas)[3:11]
 cluster_eval_cols <- setdiff(visa_colnames, "PREVAILING_WAGE")
@@ -71,17 +71,23 @@ head(visas)
 
 Train-Test split, 70-30. Train = TRUE, Test = 2.
 ```{r}
-v.indices <- sample(2, nrow(visas), replace = TRUE, prob = c(0.70, 0.30))
-v.train <- visas[v.indices == 1, union(2, 10:17)]
-v.test <- visas[v.indices == 2, union(2, 10:17)]
+in.train.rows <- createDataPartition(visas$CASE_STATUS, p = 0.7, list = FALSE)
+in.train.cols <- union(2, 10:17)
+v.train <- visas[in.train.rows, in.train.cols]
+v.test <- visas[-in.train.rows, in.train.cols]
 
-head(v.test)
+v.train$CASE_STATUS <- factor(v.train$CASE_STATUS)
+head(v.train)
 ```
 
 Build classifier.
 *Error: Error in sprintf(gettext(fmt, domain = domain), ...) : invalid format '%d'; use format %s for character objects*
 ```{r}
-classifier <- knn(v.train, v.test, v.train$CASE_STATUS, k = num_cases)
+train_control <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+classifier <- train(CASE_STATUS ~., data = v.train, method = "knn",
+                    trControl = train_control, 
+                    preProcess = c("center", "scale"),
+                    tuneLength = 10)
 classifier
 ```
 
