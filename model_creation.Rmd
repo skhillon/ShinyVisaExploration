@@ -92,10 +92,10 @@ classifier
 ```
 
 ```{r}
-#predict_case <- function(user_df) {
-#    user_numeric_df <- encode_numeric(user_df)
-#    predict(kmeans_cluster, newdata = user_df[, cluster_eval_cols])
-#}
+predict_case <- function(user_df) {
+    user_numeric_df <- encode_numeric(user_df)
+    predict(classifier, newdata = user_numeric_df)
+}
 ```
 
 ## Regression - Yearly Wage Estimation (TODO)
