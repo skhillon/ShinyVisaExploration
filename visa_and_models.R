@@ -57,4 +57,12 @@ predict_case <- function(user_df) {
 }
 
 # 3 ===== PREDICTED WAGE REGRESSOR =====
-wage_model <- lm()
+wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding
+                     + job_title_encoding + ft_encoding + worksite_encoding + year_encoding,
+                     data = visas)
+
+# External interface
+predict_wage <- function(user_numeric_df) {
+    user_numeric_df <- encode_numeric(user_df)
+    predict(wage_regressor, newdata = user_numeric_df)
+}

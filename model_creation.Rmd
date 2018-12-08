@@ -92,7 +92,7 @@ classifier
 ```
 
 ```{r}
-predict_case <- function(user_df) {
+predict_case <- function(user_numeric_df) {
     user_numeric_df <- encode_numeric(user_df)
     predict(classifier, newdata = user_numeric_df)
 }
@@ -100,7 +100,15 @@ predict_case <- function(user_df) {
 
 ## Regression - Yearly Wage Estimation (TODO)
 ```{r}
-#wage_model <- lm()
+wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding 
+                     + job_title_encoding + ft_encoding + worksite_encoding + year_encoding,
+                 data = visas)
+wage_regressor
 ```
 
-## TODO: Output functions to RData so Shiny can load them.
+```{r}
+predict_wage <- function(user_numeric_df) {
+    user_numeric_df <- encode_numeric(user_df)
+    predict(wage_regressor, newdata = user_numeric_df)
+}
+```
