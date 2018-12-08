@@ -62,7 +62,9 @@ wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding
                      data = visas)
 
 # External interface
-predict_wage <- function(user_numeric_df) {
+predict_wage <- function(user_df) {
     user_numeric_df <- encode_numeric(user_df)
     predict(wage_regressor, newdata = user_numeric_df)
 }
+
+save.image(file = "visas_and_models.RData")

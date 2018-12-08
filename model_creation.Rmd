@@ -92,7 +92,7 @@ classifier
 ```
 
 ```{r}
-predict_case_status <- function(user_numeric_df) {
+predict_case_status <- function(user_df) {
     user_numeric_df <- encode_numeric(user_df)
     predict(classifier, newdata = user_numeric_df)
 }
@@ -107,7 +107,7 @@ wage_regressor
 ```
 
 ```{r}
-predict_wage <- function(user_numeric_df) {
+predict_wage <- function(user_df) {
     user_numeric_df <- encode_numeric(user_df)
     predict(wage_regressor, newdata = user_numeric_df)
 }
