@@ -51,7 +51,7 @@ classifier <- train(CASE_STATUS ~., data = v.train, method = "knn",
                     tuneLength = 10)
 
 # External Interface.
-predict_case <- function(user_df) {
+predict_case_status <- function(user_df) {
     user_numeric_df <- encode_numeric(user_df)
     predict(classifier, newdata = user_numeric_df)
 }
