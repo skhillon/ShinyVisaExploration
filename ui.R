@@ -193,7 +193,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("acceptResetFilters", "Reset Filters")
                ),
                   mainPanel(
-                      h3(paste("Your predicted case status:", predict_case_status(user_info_df))),
+                      h3(case_message),
                      plotOutput("acceptVis")
                   )
                )
@@ -240,7 +240,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("wageResetFilters", "Reset Filters")
                ),
                   mainPanel(
-                      h3(paste("Your predicted annual earnings:", sprintf("$%3.2f", predict_wage(user_info_df)))),
+                      h3(wage_message),
                       plotOutput("wageVis"))
                   )
                )
