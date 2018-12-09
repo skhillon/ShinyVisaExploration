@@ -4,17 +4,17 @@ function(input, output, session) {
       leaflet(visas %>%
                  filter(
                     {if (input$EMPLOYER_NAME_MAP != "")
-                       grepl(input$EMPLOYER_NAME_MAP, 
+                       grepl(input$EMPLOYER_NAME_MAP,
                              EMPLOYER_NAME, ignore.case = TRUE)
                        else
                           TRUE} &
                     {if (input$SOC_NAME_MAP != "")
-                       grepl(input$SOC_NAME_MAP, 
+                       grepl(input$SOC_NAME_MAP,
                              SOC_NAME, ignore.case = TRUE)
                        else
                           TRUE} &
                     {if (input$JOB_TITLE_MAP != "")
-                       grepl(input$JOB_TITLE_MAP, 
+                       grepl(input$JOB_TITLE_MAP,
                              JOB_TITLE, ignore.case = TRUE)
                        else
                           TRUE} &
@@ -26,35 +26,35 @@ function(input, output, session) {
                        YEAR >= min(input$YEAR_MAP) &
                        YEAR <= max(input$YEAR_MAP) &
                        PREVAILING_WAGE >= min(input$PREVAILING_WAGE_MAP) &
-                       PREVAILING_WAGE <= max(input$PREVAILING_WAGE_MAP) 
+                       PREVAILING_WAGE <= max(input$PREVAILING_WAGE_MAP)
                  )
       ) %>%
          addTiles() %>%
          addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
    })
-   
+
    #### Pie Chart ####
    output$acceptVis <- renderPlot({
       visas %>%
          filter(
             {if (input$EMPLOYER_NAME_PIE != "")
-               grepl(input$EMPLOYER_NAME_PIE, 
+               grepl(input$EMPLOYER_NAME_PIE,
                      EMPLOYER_NAME, ignore.case = TRUE)
                else
                   TRUE} &
             {if (input$SOC_NAME_PIE != "")
-               grepl(input$SOC_NAME_PIE, 
+               grepl(input$SOC_NAME_PIE,
                      SOC_NAME, ignore.case = TRUE)
                else
                   TRUE} &
             {if (input$JOB_TITLE_PIE != "")
-               grepl(input$JOB_TITLE_PIE, 
+               grepl(input$JOB_TITLE_PIE,
                      JOB_TITLE, ignore.case = TRUE)
                else
                   TRUE} &
-            {if (input$FULL_TIME_POSITION_PIE != "") 
+            {if (input$FULL_TIME_POSITION_PIE != "")
                FULL_TIME_POSITION == input$FULL_TIME_POSITION_PIE
-               else 
+               else
                   TRUE} &
                YEAR >= min(input$YEAR_PIE) &
                YEAR <= max(input$YEAR_PIE) &
@@ -70,38 +70,37 @@ function(input, output, session) {
                panel.grid = element_blank()) +
          scale_fill_manual(values = statusPalette)
    })
-   
+
    #### Bar chart ####
    output$wageVis <- renderPlot({
       visas %>%
          filter(
-            {if (input$FULL_TIME_POSITION_3 != "") 
-               FULL_TIME_POSITION == input$FULL_TIME_POSITION_3 
-               else 
+            {if (input$FULL_TIME_POSITION_3 != "")
+               FULL_TIME_POSITION == input$FULL_TIME_POSITION_3
+               else
                   TRUE} &
-            {if (input$SOC_NAME_3 != "") 
-               SOC_NAME == input$SOC_NAME_3 
-               else 
+            {if (input$SOC_NAME_3 != "")
+               SOC_NAME == input$SOC_NAME_3
+               else
                   TRUE} &
-            {if (input$JOB_TITLE_3 != "") 
-               JOB_TITLE == input$JOB_TITLE_3 
-               else 
+            {if (input$JOB_TITLE_3 != "")
+               JOB_TITLE == input$JOB_TITLE_3
+               else
                   TRUE} &
-            {if (input$EMPLOYER_NAME_3 != "") 
-               EMPLOYER_NAME == input$EMPLOYER_NAME_3 
-               else 
+            {if (input$EMPLOYER_NAME_3 != "")
+               EMPLOYER_NAME == input$EMPLOYER_NAME_3
+               else
                   TRUE} &
                YEAR >= min(input$YEAR_3) &
                YEAR <= max(input$YEAR_3) &
                PREVAILING_WAGE >= min(input$PREVAILING_WAGE_3) &
                PREVAILING_WAGE <= max(input$PREVAILING_WAGE_3)
          ) %>%
-         ggplot(aes_string(x = "CASE_STATUS", 
-                           y = "PREVAILING_WAGE", 
-                           fill = "CASE_STATUS")) +
+           ggplot(aes(x = CASE_STATUS, y = mean(PREVAILING_WAGE), fill = CASE_STATUS)) +
          geom_bar(stat = "identity") +
-         labs(x = "Case Status", y = "Prevailing Wage") +
-         scale_fill_manual(values = statusPalette) #+
+         labs(x = "Case Status", y = "Mean Prevailing Wage") +
+         scale_fill_manual(values = statusPalette) +
+           scale_y_continuous(labels = comma)#+
       #geom_smooth(method = "lm", color = "red")
    })
 

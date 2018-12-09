@@ -3,22 +3,29 @@
 #   - Authors: Sarthak Khillon, Juan Moreno, Christina Walden
 ##############################
 
-library(tidyverse)
-library(readr)
-library(stringr)
-library(leaflet)
-library(ggplot2)
-library(shiny)
-library(RColorBrewer)
-library(tools)
-library(shinyjs)
+library(tidyverse)  # Misc tidy data wrapper package.
+library(readr)  # File IO
+library(stringr)  # String processing.
+library(leaflet)  # Map plotting.
+library(ggplot2)  # Plotting.
+library(shiny)  # Duh.
+library(RColorBrewer)  # Color palette configuration.
+library(shinyjs)  # To reset Shiny input elements.
+library(scales)  # GGPlot axis formatting.
 
-load("visa_info.RData")
-
-# Convert all SOC, and Job Title fields to Title Case.
-# We leave Employers as all-caps because Company names vary greatly.
-visas$SOC_NAME <- toTitleCase(tolower(visas$SOC_NAME))
-visas$JOB_TITLE <- toTitleCase(tolower(visas$JOB_TITLE))
+load("visas_and_models.RData")
 
 # Set color palette.
 statusPalette <- brewer.pal(9, "Set1")
+
+# Global user input dataframe.
+user_info_df <- data.frame(
+    EMPLOYER_NAME = "",
+    SOC_NAME = "",
+    JOB_TITLE = "",
+    FULL_TIME_POSITION = TRUE,
+    YEAR = 2011,
+    WORKSITE = "",
+    lon = 25,
+    lat = 25
+)

@@ -75,7 +75,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
                            sliderInput("userWage", "Annual Wage",
                                        min = MIN.WAGE, max = MAX.WAGE,
-                                       value = MIN.WAGE)
+                                       value = MIN.WAGE),
+
+                           actionButton("submitUserInfo", "Done")
                        )
                    )
                )),
@@ -101,21 +103,21 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                      selected = c("CERTIFIED-WITHDRAWN", "CERTIFIED", "WITHDRAWN", "DENIED")
                   ),
                   hr(),
-                  
+
                   # There are many values for EMPLOYER_NAME, so this will be an autocomplete text field.
                   selectizeInput("EMPLOYER_NAME_MAP", "Employer Name",
                                  choices = c("None" = "", visas$EMPLOYER_NAME),
                                  options = list(maxItems = 1),
                                  selected = ""),
                   br(),
-                  
+
                   # Similarly, there are also many values for SOC_NAME. This will also be a text field.
                   selectizeInput("SOC_NAME_MAP", "SOC Name",
                                  choices = c("None" = "", visas$SOC_NAME),
                                  options = list(maxItems = 1),
                                  selected = ""),
                   br(),
-                  
+
                   # Another text field for JOB_TITLE
                   selectizeInput("JOB_TITLE_MAP", "Job Title",
                                  choices = c("None" = "", visas$JOB_TITLE),
@@ -123,7 +125,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                  selected = ""),
                   #selected = "SOFTWARE ENGINEER"),
                   br(),
-                  
+
                   # Full Time Position is either a yes or a no, so this is a 3-button radio section.
                   radioButtons("FULL_TIME_POSITION_MAP", "Job Type",
                                choices = list("All" = "", "Full Time" = "Y", "Part Time" = "N")),
@@ -144,7 +146,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   mainPanel(leafletOutput("geographicVis"))
                   )
                ),
-      
+
       #Pie chart
       tabPanel(
          "Acceptance Rates",
@@ -156,14 +158,14 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                               options = list(maxItems = 1),
                               selected = ""),
                br(),
-               
+
                # Similarly, there are also many values for SOC_NAME. This will also be a text field.
                selectizeInput("SOC_NAME_PIE", "SOC Name",
                               choices = c("None" = "", visas$SOC_NAME),
                               options = list(maxItems = 1),
                               selected = ""),
                br(),
-               
+
                # Another text field for JOB_TITLE
                selectizeInput("JOB_TITLE_PIE", "Job Title",
                               choices = c("None" = "", visas$JOB_TITLE),
@@ -189,6 +191,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("acceptResetFilters", "Reset Filters")
                ),
                   mainPanel(
+                      h3(paste("Your predicted case status:", predict_case_status(user_info_df))),
                      plotOutput("acceptVis")
                   )
                )
@@ -202,14 +205,14 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                     options = list(maxItems = 1),
                                     selected = ""),
                      br(),
-                     
+
                      # Similarly, there are also many values for SOC_NAME. This will also be a text field.
                      selectizeInput("SOC_NAME_3", "SOC Name",
                                     choices = c("None" = "", visas$SOC_NAME),
                                     options = list(maxItems = 1),
                                     selected = ""),
                      br(),
-                     
+
                      # Another text field for JOB_TITLE
                      selectizeInput("JOB_TITLE_3", "Job Title",
                                     choices = c("None" = "", visas$JOB_TITLE),
@@ -234,7 +237,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   br(),
                   actionButton("wageResetFilters", "Reset Filters")
                ),
-                  mainPanel(plotOutput("wageVis"))
+                  mainPanel(
+                      h3(paste("Your predicted annual earnings:", sprintf("$%3.2f", predict_wage(user_info_df)))),
+                      plotOutput("wageVis"))
                   )
                )
       )
