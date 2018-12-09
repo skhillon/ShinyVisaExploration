@@ -37,7 +37,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                          "Shows where applicants intended to go.",
                                          em("NOTE: If you apply too many filters, or filters that don't make sense (searching for Construction workers at Apple),
                                             then the map may be blank. Click \"Reset\" to clear your filters, or change them to something else.")),
-                                 tags$li(tags$b("Acceptance Rates:"), "Displays a pie chart of case status. Gives a good idea of what the case status distrubution looks like."),
+                                 tags$li(tags$b("Acceptance Rates:"), "Displays a pie chart of case status. Gives a good idea of what the case status distribution looks like."),
                                  tags$li(tags$b("Top Earners:"), "Displays a bar chart of earnings by case status.")
                              )
                            )
@@ -238,7 +238,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("wageResetFilters", "Reset Filters")
                ),
                   mainPanel(
-                      h3(paste("Your predicted annual earnings:", sprintf("$%3.2f", predict_wage(user_info_df)))),
+                      h3(paste("Your predicted annual earnings: ", sprintf("$%3.2f", predict_wage(user_info_df)))),
                       plotOutput("wageVis"))
                   )
                )
