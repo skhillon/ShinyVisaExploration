@@ -4,13 +4,18 @@ output: html_notebook
 ---
 
 ### Introduction 
+
 This project analyzes HB1 visa applications in the United States and the possible association between the various factors included in an application and the salary being offered (wage is the response variable). This research analyzes 3,002,458 applications for the the H-1B visa from the years 2011 to 2016. A HB-1 visa allows U.S. employers to employ foreign workers in specialty occupations. This visa is a temporary visa, according to the U.S. Citizenship and Immigration Services this type of visa has a six month maximum for the intial period of stay with possible extension of another six months. For a foreign national to apply for a HB-1 visa, a U.S. employer must first offer them a job and submit petition for a HB-1 visa. This is the most common visa applied for and held by international students once they complete higher education. 
 
 This is considered an observational study since the data provided was recorded without attempts to influence or change the response. The dataset we are going to be analyzing was pulled from the public forum data webpage Kaggle. The Office of Foreign Labor Certification (OFLC) generates this datta and is disclosed annualy online. For further analysis or questions the raw data are available through the OFLC, but this data are not ready for analysis. There were multiple transformations applied by the intial researcher to the raw data in order to prepare this data for analysis. For reference, there is an article explaining the manipulations provided along with an R Notebook file. RStudio will be the primary package utilizied for the statistical analysis being conducted in this report.  
 
-The response variable in this study is encoded as 'PREVAILING_WAGE' to be defined as the most frequent wage for the corresponding role. In order to conduct accurate exploratory data analysis of this dataset we created a 'Shiny Application' through RStudio, which will be further explored in this report. Something to note, a randomized sample of the 3 million observations was taken into order to efficiently analyze the data.
+The response variable in this study is encoded as 'PREVAILING_WAGE' to be defined as the most frequent wage for the corresponding role. In order to conduct accurate exploratory data analysis of this dataset we created a 'Shiny Application' through RStudio, which will be further explored in this report. Something to note, a randomized sample of the 3 million observations was taken into order to efficiently analyze the data. Link to the created shiny app []. 
 
 ### Statistical Concepts 
+
+Two major concepts were applied in this analysis. The first being KMN model also known as the K nearest neighbors mode. K nearest neighbors is an algorithm that stores all available cases and classifies new cases based on a similarity measure. KNN has been used in statistical estimation and pattern recognition since the beginning of 1970’s as a non-parametric technique. We utilized this model due to the nature of our CASE_STATUS variable. Futher information on this process can be found in the references portion of the report. 
+
+A simple linear regression model was applied in order to predict wage based on the other explanatory variablese included in the data. Linear regression holds four assumptions: linearity, independence, normality, and equal variance. 
 
 ### Results 
 
@@ -129,3 +134,8 @@ summary(wage_regressor)
 
 ### Conclusion
 
+### References 
+
+https://www.kaggle.com/gpreda/h-1b-visa-applications 
+https://sharan-naribole.github.io/2017/02/24/h1b-eda-part-I.html  
+https://www.saedsayad.com/k_nearest_neighbors.htm 
