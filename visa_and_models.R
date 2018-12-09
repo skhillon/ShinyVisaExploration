@@ -1,15 +1,11 @@
 library(tidyverse)  # Misc tidy data wrapper package.
-library(tools)  # Only used for toTitleCase()
 library(caret)  # KNN model
 library(ggplot2)  # Plotting
 
-# 1 ===== DATA CLEANING =====
-load("visa_info.RData")
+# 1 ===== LOAD DATA =====
 
-# Convert all SOC, and Job Title fields to Title Case.
-# We leave Employers as all-caps because Company names vary greatly.
-visas$SOC_NAME <- toTitleCase(tolower(visas$SOC_NAME))
-visas$JOB_TITLE <- toTitleCase(tolower(visas$JOB_TITLE))
+# The sampled source csv is read in, cleaned, and converted to a .RData file in generate_env.R
+load("visa_info.RData")
 
 # 2 ===== CASE STATUS CLASSIFIER =====
 
