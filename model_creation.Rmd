@@ -112,3 +112,7 @@ predict_wage <- function(user_df) {
     predict(wage_regressor, newdata = user_numeric_df)
 }
 ```
+
+```{r}
+summary(wage_regressor)
+```

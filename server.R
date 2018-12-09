@@ -99,7 +99,8 @@ function(input, output, session) {
            ggplot(aes(x = CASE_STATUS, y = mean(PREVAILING_WAGE), fill = CASE_STATUS)) +
          geom_bar(stat = "identity") +
          labs(x = "Case Status", y = "Mean Prevailing Wage") +
-         scale_fill_manual(values = statusPalette) #+
+         scale_fill_manual(values = statusPalette) +
+           scale_y_continuous(labels = comma)#+
       #geom_smooth(method = "lm", color = "red")
    })
 
