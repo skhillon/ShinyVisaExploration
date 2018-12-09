@@ -24,7 +24,6 @@ encode_numeric <- function(df) {
     df$job_title_encoding <- as.numeric(as.factor(df$JOB_TITLE))
     df$ft_encoding <- as.numeric(as.factor(df$FULL_TIME_POSITION))
     df$worksite_encoding <- as.numeric(as.factor(df$WORKSITE))
-    #df$year_encoding <- as.numeric(df$YEAR)
 
     return(df)
 }
