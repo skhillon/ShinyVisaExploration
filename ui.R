@@ -193,7 +193,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("acceptResetFilters", "Reset Filters")
                ),
                   mainPanel(
-                     h3(case_message),
+                     h3(textOutput("case_message")),
                      plotOutput("acceptVis")
                   )
                )
@@ -240,7 +240,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                   actionButton("wageResetFilters", "Reset Filters")
                ),
                   mainPanel(
-                      h3(wage_message),
+                      h3(textOutput("wage_message")),
                       plotOutput("wageVis"))
                   )
                )

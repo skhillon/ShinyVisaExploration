@@ -1,5 +1,12 @@
 function(input, output, session) {
    #### Interactive Geography Map #####
+    output$wage_message <- renderText({
+        "nothing"
+    })
+    output$case_message <- renderText({
+        "nothing case"
+    })
+
    output$geographicVis <- renderLeaflet({
       leaflet(visas %>%
                  filter(
@@ -115,10 +122,10 @@ function(input, output, session) {
        user_info_df$lat <- input$userLat
 
        print("DEBUG PLEASE WORK")
-       wage_message <- paste("Your predicted annual earnings are:", dollar(abs(predict_wage(user_info_df))))
-       print(wage_message)
-       case_message <- paste("Your predicted case status is:", predict_case_status(user_info_df))
-       print(case_message)
+       output$wage_message <- paste("Your predicted annual earnings are:", dollar(abs(predict_wage(user_info_df))))
+       print(output$wage_message)
+       output$case_message <- paste("Your predicted case status is:", predict_case_status(user_info_df))
+       print(output$case_message)
    })
 
     #### Reset Filter Buttons ####

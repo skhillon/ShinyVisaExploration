@@ -29,6 +29,3 @@ user_info_df <- data.frame(
     lon = 25,
     lat = 25
 )
-
-case_message <- ""
-wage_message <- ""
