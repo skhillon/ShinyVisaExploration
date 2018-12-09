@@ -20,7 +20,6 @@ encode_numeric <- function(df) {
     df$job_title_encoding <- as.numeric(as.factor(df$JOB_TITLE))
     df$ft_encoding <- as.numeric(as.factor(df$FULL_TIME_POSITION))
     df$worksite_encoding <- as.numeric(as.factor(df$WORKSITE))
-    df$year_encoding <- as.numeric(df$YEAR)
 
     return(df)
 }
@@ -34,7 +33,7 @@ visas <- encode_numeric(visas)
 
 # Train-test split
 in.train.rows <- createDataPartition(visas$CASE_STATUS, p = 0.7, list = FALSE)
-in.train.cols <- union(2, 10:17)
+in.train.cols <- union(2, 10:16)
 v.train <- visas[in.train.rows, in.train.cols]
 v.test <- visas[-in.train.rows, in.train.cols]
 v.train$CASE_STATUS <- factor(v.train$CASE_STATUS)
@@ -54,7 +53,7 @@ predict_case_status <- function(user_df) {
 
 # 3 ===== PREDICTED WAGE REGRESSOR =====
 wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding
-                     + job_title_encoding + ft_encoding + worksite_encoding + year_encoding,
+                     + job_title_encoding + ft_encoding + worksite_encoding,
                      data = visas)
 
 # External interface

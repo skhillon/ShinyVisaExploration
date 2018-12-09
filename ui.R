@@ -44,9 +44,9 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                        ),
                        br(),
                        h3("Personalized Results (optional)"),
-                       p("Each tab also has the ability to show what", em("your"),
-                         "results would be! Simply input your information in the form below,
-                         and every tab will display your projected results next to the main visualization component."),
+                       p("You can also see", em("your"),
+                         "predicted case status and annual earnings! Simply input your information in the form below,
+                         the appropriate tab will display your projected results next to the main visualization component."),
                        div(
                            id = "user_form",
 
@@ -73,11 +73,13 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
                            checkboxInput("userFullTime", "Full Time?"),
 
-                           sliderInput("userWage", "Annual Wage",
-                                       min = MIN.WAGE, max = MAX.WAGE,
-                                       value = MIN.WAGE),
+                           numericInput("userLon", "Longitude",
+                                        min = -180, max = 180, value = 0),
 
-                           actionButton("submitUserInfo", "Done")
+                           numericInput("userLat", "Latitude",
+                                        min = -90, max = 90, value = 0),
+
+                           actionButton("submitUserInfo", "Done"), br(), br(), br()
                        )
                    )
                )),
