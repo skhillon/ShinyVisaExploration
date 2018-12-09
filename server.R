@@ -96,11 +96,11 @@ function(input, output, session) {
                PREVAILING_WAGE >= min(input$PREVAILING_WAGE_3) &
                PREVAILING_WAGE <= max(input$PREVAILING_WAGE_3)
          ) %>%
-           ggplot(aes(x = CASE_STATUS, y = mean(PREVAILING_WAGE), fill = CASE_STATUS)) +
-         geom_bar(stat = "identity") +
+           ggplot(aes(x = CASE_STATUS, y = PREVAILING_WAGE, fill = CASE_STATUS)) +
+         stat_summary(fun.y = "mean", geom = "bar") +
          labs(x = "Case Status", y = "Mean Prevailing Wage") +
          scale_fill_manual(values = statusPalette) +
-           scale_y_continuous(labels = comma)#+
+         scale_y_continuous(labels = comma)#+
       #geom_smooth(method = "lm", color = "red")
    })
 
