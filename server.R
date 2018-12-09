@@ -1,12 +1,39 @@
 function(input, output, session) {
-   #### Interactive Geography Map #####
+    #### MODELS ####
+    update_user_info <- function() {
+        if (input$userEmployer == "") {
+            # Not filled in.
+            return(FALSE)
+        }
+        else {
+            user_info_df$EMPLOYER_NAME <- input$userEmployer
+            user_info_df$SOC_NAME <- input$userSOC
+            user_info_df$JOB_TITLE <- input$userJobTitle
+            user_info_df$FULL_TIME_POSITION <- input$userFullTime
+            user_info_df$lon <- input$userLon
+            user_info_df$lat <- input$userLat
+
+            return(TRUE)
+        }
+    }
+
     output$wage_message <- renderText({
-        "nothing"
-    })
-    output$case_message <- renderText({
-        "nothing case"
+        if (update_user_info()) {
+            return(paste("Your predicted annual earnings are:", dollar(abs(predict_wage(user_info_df)))))
+        } else {
+            return("Fill in the form for your personalized output!")
+        }
     })
 
+    output$case_message <- renderText({
+        if (update_user_info()) {
+            return(paste("Your predicted case status is:", predict_case_status(user_info_df)))
+        } else {
+            return("Fill in the form for your personalized output!")
+        }
+    })
+
+    #### Interactive Geography Map #####
    output$geographicVis <- renderLeaflet({
       leaflet(visas %>%
                  filter(
