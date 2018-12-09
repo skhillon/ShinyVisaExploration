@@ -104,6 +104,23 @@ function(input, output, session) {
       #geom_smooth(method = "lm", color = "red")
    })
 
+    #### User Info Submission ####
+
+   observeEvent(input$submitUserInfo, {
+       user_info_df$EMPLOYER_NAME <- input$userEmployer
+       user_info_df$SOC_NAME <- input$userSOC
+       user_info_df$JOB_TITLE <- input$userJobTitle
+       user_info_df$FULL_TIME_POSITION <- input$userFullTime
+       user_info_df$lon <- input$userLon
+       user_info_df$lat <- input$userLat
+
+       print("DEBUG PLEASE WORK")
+       wage_message <- paste("Your predicted annual earnings are:", dollar(abs(predict_wage(user_info_df))))
+       print(wage_message)
+       case_message <- paste("Your predicted case status is:", predict_case_status(user_info_df))
+       print(case_message)
+   })
+
     #### Reset Filter Buttons ####
     observeEvent(input$mapResetFilters, {
         reset("CASE_STATUS_MAP")

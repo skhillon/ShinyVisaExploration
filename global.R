@@ -24,8 +24,11 @@ user_info_df <- data.frame(
     SOC_NAME = "",
     JOB_TITLE = "",
     FULL_TIME_POSITION = TRUE,
-    YEAR = 2011,
     WORKSITE = "",
+    YEAR = 2016,
     lon = 25,
     lat = 25
 )
+
+case_message <- ""
+wage_message <- ""
