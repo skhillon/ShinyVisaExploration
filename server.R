@@ -1,35 +1,28 @@
 function(input, output, session) {
     #### MODELS ####
-    update_user_info <- function() {
-        if (input$userEmployer == "") {
-            # Not filled in.
-            return(FALSE)
-        }
-        else {
-            user_info_df$EMPLOYER_NAME <- input$userEmployer
-            user_info_df$SOC_NAME <- input$userSOC
-            user_info_df$JOB_TITLE <- input$userJobTitle
-            user_info_df$FULL_TIME_POSITION <- input$userFullTime
-            user_info_df$lon <- input$userLon
-            user_info_df$lat <- input$userLat
+    update_user_info <- reactive({
+       user_info_df$EMPLOYER_NAME <- input$userEmployer
+       user_info_df$SOC_NAME <- input$userSOC
+       user_info_df$JOB_TITLE <- input$userJobTitle
+       user_info_df$FULL_TIME_POSITION <- input$userFullTime
+       user_info_df$lon <- input$userLon
+       user_info_df$lat <- input$userLat
+       return(user_info_df)
+       })
 
-            return(TRUE)
-        }
-    }
-
-    output$wage_message <- renderText({
-        if (update_user_info()) {
-            return(paste("Your predicted annual earnings are:", dollar(abs(predict_wage(user_info_df)))))
-        } else {
-            return("Fill in the form for your personalized output!")
-        }
+    output$wage_message <- renderPrint({
+       if (update_user_info()$EMPLOYER_NAME != "") {
+          paste("Your predicted annual earnings are:", dollar(abs(predict_wage(update_user_info()))))
+       } else {
+          "Fill in the form for your personalized output!"
+       }
     })
 
-    output$case_message <- renderText({
-        if (update_user_info()) {
-            return(paste("Your predicted case status is:", predict_case_status(user_info_df)))
+    output$case_message <- renderPrint({
+        if (update_user_info()$EMPLOYER_NAME != "") {
+            paste("Your predicted case status is:", predict_case_status(update_user_info()))
         } else {
-            return("Fill in the form for your personalized output!")
+            "Fill in the form for your personalized output!"
         }
     })
 

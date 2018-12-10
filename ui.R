@@ -51,25 +51,31 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                            id = "user_form",
 
                            selectizeInput("userEmployer", "Employer",
-                                          choices = visas$EMPLOYER_NAME,
+                                          choices = c("Select from dropdown" = "", 
+                                                      visas$EMPLOYER_NAME),
                                           options = list(
                                               placeholder = "Select from dropdown",
                                               maxItems = 1
-                                          )),
+                                          ),
+                                          selected = ""),
 
                            selectizeInput("userSOC", "SOC Category",
-                                          choices = visas$SOC_NAME,
+                                          choices = c("Select from dropdown" = "", 
+                                                      visas$SOC_NAME),
                                           options = list(
                                               placeholder = "Select from dropdown",
                                               maxItems = 1
-                                          )),
+                                          ),
+                                          selected = ""),
 
                            selectizeInput("userJobTitle", "Job Title",
-                                          choices = visas$JOB_TITLE,
+                                          choices = c("Select from dropdown" = "", 
+                                                      visas$JOB_TITLE),
                                           options = list(
                                               placeholder = "Select from dropdown",
                                               maxItems = 1
-                                          )),
+                                          ), 
+                                          selected = ""),
 
                            checkboxInput("userFullTime", "Full Time?"),
 
@@ -135,7 +141,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
 
                   # PREVAILING_WAGE will be an inclusive slider.
                   sliderInput("PREVAILING_WAGE_MAP", "Wage Range", min = MIN.WAGE,
-                              max = MAX.WAGE, value = c(MIN.WAGE, MAX.WAGE)),
+                              max = MAX.WAGE, value = c(MIN.WAGE, MAX.WAGE), step = 50000),
                   br(),
 
                   # There are very few years that are unique in the dataset, so this will be an inclusive slider.
