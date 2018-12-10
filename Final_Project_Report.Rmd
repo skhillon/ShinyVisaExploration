@@ -10,19 +10,23 @@ output:
 
 # Introduction 
 
-This project analyzes HB1 visa applications in the United States and the possible association between the various factors included in an application. Based on user-defined input we created two models in order to predict possible salary and outcome of an application. This research analyzes 3,002,458 applications for the H-1B visa from the years 2011 to 2016. A HB-1 visa allows U.S. employers to employ foreign workers in specialty occupations. This visa is a temporary visa, according to the U.S. Citizenship and Immigration Services this type of visa has a six-month maximum for the initial period of stay with possible extension of another six months. For a foreign national to apply for a HB-1 visa, a U.S. employer must first offer them a job and submit petition for a HB-1 visa. This is the most common visa applied for and held by international students once they complete higher education. 
+This project analyzes H1-B visa applications in the United States and the possible association between various fields included in an application. Based on user-defined input, we created two models in order to predict possible salary and outcome of an application. This research analyzes 3,002,458 H1-B applications from the years 2011 to 2016. An H1-B visa allows U.S. employers to employ foreign workers in specialty occupations. According to U.S. Citizenship and Immigration Services, this is a temporary visa that grants 6 months of residence in the country with the possibility of a 6-month extension. For a foreign national to apply for an H1-B visa, a U.S. employer must first offer them a job and submit a petition. This is the most common visa applied for and held by international students once they complete higher education. 
 
-This is considered an observational study since the data provided was recorded without attempts to influence or change the response. The dataset we are going to be analyzing was pulled from the public forum data webpage Kaggle. The Office of Foreign Labor Certification (OFLC) generates this data and is disclosed annually online. For further analysis or questions the raw data are available through the OFLC, but this data are not ready for analysis. There were multiple transformations applied by the initial researcher to the raw data in order to prepare this data for analysis. For reference, there is an article explaining the manipulations provided along with an R Notebook file. RStudio will be the primary package utilized for the statistical analysis being conducted in this report.  
+This is considered an observational study since the data was recorded without attempts to influence or change the response. The dataset we are going to be analyzing was pulled from Kaggle, a website with thousands of publicly-accessible datasets. The Office of Foreign Labor Certification (OFLC) generates the H1-B data and releases it online on a yearly basis. For further analysis or questions, the raw data is available through the OFLC; however, please note that data is not ready for analysis. There were multiple transformations applied by the initial researcher to the raw data in order to prepare this data for analysis. For reference, there is an article explaining the manipulations provided along with an R Notebook file. We primarily utilized RStudio for the statistical analysis throughout this report.  
 
-One of the responses variables in this study is encoded as 'PREVAILING_WAGE' to be defined as the most frequent wage for the corresponding role. The following response variable being 'CASE_STATUS' which is defined as the status of an application. There are only four possible responses: Withdrawn, Certified, Denied, and Certified-Withdrawn. The rest of the variables in the dataset are to be understood as possible explanatory variables. There are a few character variables: 'EMPLOYER_NAME', 'SOC_NAME', and 'JOB_TITLE'. The dataset holds on binary variable, 'FULL_TIME_POSITION', which has either a yes or no response. The majority of the visa applications are for full-time positions, so we do not expect much explanation of the variation by this variable. The year that the application was processed is contained within the 'YEAR' variable. There is also information pertaining to the location of the employer via the character variable 'WORKSITE', which gives an exact address of the employer worksite, as well as longitude and latitude values of the employer worksite stored as 'lon' and 'lat'.  In order to conduct accurate exploratory data analysis of this dataset we created a Shiny Application through RStudio, which will be further explored in this report. Something to note, a randomized sample of the 3 million observations was taken into order to efficiently analyze the data. The dataset was just too large in order to analyze successfully under the time and resources constraints. Link to the created shiny application. 
+One of the responses variables in this study is `PREVAILING_WAGE`, defined as the most frequent wage for the corresponding role. The following response variable is `CASE_STATUS`, defined as the status of an application. There are only four possible responses: Withdrawn, Certified, Denied, and Certified-Withdrawn. The rest of the variables in the dataset are possible explanatory variables. There are a few character variables: `EMPLOYER_NAME`, `SOC_NAME`, and `JOB_TITLE`. The dataset holds one logical variable, `FULL_TIME_POSITION`, which has either a yes or no response. The majority of the visa applications are for full-time positions, so we do not expect much information out of this variable. The year that the application was processed is contained within the `YEAR` variable. There is also information pertaining to the location of the employer via the character variable `WORKSITE`, which gives an exact address of the employer worksite, as well as longitude and latitude values stored as `lon` and `lat`.  In order to conduct accurate exploratory data analysis of this dataset, we created a Shiny Application through RStudio, which will be further explored in this report. Note that we randomly sampled 10,000 observations from the 3 million original data points for performance reasons. **Even then, the plots in the application still take a few seconds to load**. A link to our shiny app is below: 
 
-[ https://stat331christinasarthakjuan.shinyapps.io/finalproject/ ]
+https://stat331christinasarthakjuan.shinyapps.io/finalproject/
 
-#Statistical Concepts 
+# Statistical Concepts 
 
-Two major concepts were applied in this analysis. The first being KNN model also known as the K nearest neighbors model. K nearest neighbors is an algorithm that stores all available cases and classifies new cases based on a similarity measure. KNN has been used in statistical estimation and pattern recognition since the beginning of 1970’s as a non-parametric technique. We utilized this model due to the nature of our CASE_STATUS variable in order to predict the outcome of a case based on user input information. Further information on this process can be found in the references portion of the report. Multiple transformations of the data were imposed to correctly run this model. The R script of those transformations can be found below: 
+We applied two major forms of statistical analysis.
 
-```{r, echo=FALSE, results='hide'}
+The first model is the "K Nearest Neighbors" model (KNN). KNNs are a form of supervised learning classification algorithms: Given `n` different features, the model creates an `n` dimensional graph and looks for clusters by Euclidian distance. Then, given new data points, KNN models can place them in this `n` dimensional space and check which cluster has the closest match. We used this model primarily to predict a new user's case status. Further information on this process is available in the references section.
+
+The data transformations we applied are available below:
+
+```{r, message = FALSE, results='hide'}
 library(tidyverse)  # Misc tidy data wrapper package.
 library(caret)  # kNN model
 library(ggplot2)  # Plotting
@@ -82,10 +86,13 @@ predict_case_status <- function(user_df) {
 ```
 
 
-A simple linear regression model was applied in order to predict wage, based on the other explanatory variables included in the data. Linear regression holds four general assumptions: linearity, independence, normality, and equal variance. This model was created in attempt to predict the salary based on user defined input through the application. Something to note, within the data there are high valued observations that present possible skews in the data. However, there was no indication that those observations were invalid or incorrect thus no legitimate reasoning to remove those observations. R script for this regression is provided below: 
+Secondly, we used a simple linear regression model to predict wage based on the other variables available. Linear regression holds four general assumptions: linearity, independence, normality, and equal variance. 
 
+Within the data, there are outliers that represent possible skews in the data. However, there is no indication that these observations are invalid or correct; for example, a CEO makes significantly more in a year than most other professions. Therefore, we found no reason to eliminate these statistical outliers from the dataset before performing regression.
 
-```{r, echo=FALSE}
+The code for our regressor model is below:
+
+```{r, message = FALSE, results='hide'}
 # 3 ===== PREDICTED WAGE REGRESSOR =====
 wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding
                      + job_title_encoding + ft_encoding + worksite_encoding,
@@ -98,36 +105,44 @@ predict_wage <- function(user_df) {
 }
 ```
 
-Furthermore, there were three types of exploratory data analysis performed. The first being a geographic exploration on the frequency of jobs based on location with an interactive mapping. Second, percentages of case status results in the form of a pie chart. Lastly, a bar chart on wages based on different case status results.
+Lastly, we performed 3 types of expoloratory data analysis:
+
+1) An interactive map to show the frequency of jobs by location.
+2) A comparison of case status results using a pie chart.
+3) A bar chart that compares prevailing wages based on different case status results.
 
 # Results 
 
 ### Application Usage 
 
-The first tab in the application will ask for optional input via the user in order to produce predicted results based on the kNN model and the linear regression applied. Those results will be displayed on their respective tabs. If the user opts not to include provide that information, they may can explore the data via three methods; separated by three different tabs. Each tab has as set of possible inputs for the data to be subset by, however the user must take caution in apply too many filters or inaccurate filters. If there are too many filters applied there may not be sufficient data or any data at all t display. An example would be filter to only Apple Inc. as employer, then selecting "Construction Worker" as job title. There is not an observation that fits both those criteria which leads to blank results. The specific types of data exploration are detailed further in this section. 
+In addition to providing introductory information, the first tab in the application has an optional user input field. A user can input their data to trigger our classifier and regressor models, which will then show a predicted case status and wage on their respective tabs. This information is displayed at the top of a relevant tab; if a user chooses not to provide this information, then a message is shown inviting them to fill in that data. All data is temporarily held for their interactive session and released once they exit the application.
 
-### Linear Regression Summary 
-The results of this regression are hidden from the user only the output of predicted salary will be displayed by the application output. 
-```{r}
-summary(wage_regressor)
-```
+Each tab has a sidebar with which a user can filter the data; however, users must be cautious not to apply too many filters as there may be no observations that match those specifications. For example, if a user chooses to limit employers to "Apple, Inc." and job titles to "Construction worker", then the results will be blank. In that case, a user can simply press the "Reset" button to clear all filters.
 
-### kNN model Results
-These results are hidden from the user only the output of what their expected case status is will be displayed by the application output.  
+Further information on data exploration is available throughout the rest of this section.
+
+### kNN Model Results
+The details of the regressor model are hidden from the user; only the output (expected case status) is shown.  
 ```{r}
 classifier
 ```
 
-### Geographic Exploration
+### Linear Regression Summary 
+As with the kNN classifier, the details of the regressor are hidden from the user; only the output (predicted wage) is shown.
+```{r}
+summary(wage_regressor)
+```
 
-An interactive map is created with simple counts of the number of jobs that fit the filters imposed by the user. The more zoomed in the map gets the more specific the counts and locations are. Below is an example of an interactive map with the following filters:
+### Tab 1 - Geographic Exploration
+
+An interactive map shows the number of jobs that fit the filters added by the user. The more zoomed in the map becomes, the more specific the counts and locations are. Below is an example of an interactive map with the following filters:
 
 - Application Certified and not withdrawn
 - Full time jobs
 - Year 2011, 2013, or 2016
 - Is some sort of Executive or Physicist
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 sample.map.filtered <- visas %>%
     filter(CASE_STATUS == "CERTIFIED" &
                FULL_TIME_POSITION == "Y" & 
@@ -139,11 +154,11 @@ leaflet(sample.map.filtered) %>%
     addMarkers(~lon, ~lat, clusterOptions = markerClusterOptions())
 ```
 
-### Application Status Pie Chart
+### Tab 2 - Application Status Pie Chart
 
-Below is a pie chart generated where the user may apply as many filters as they please. In this example the data are only filtered by years 2011 and 2015.
+Below is a pie chart showing the proportion of different case status results. In this example, the data is filtered to only include the years 2011 and 2015.
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 visas %>%
     filter(YEAR == 2011 | YEAR == 2015) %>%
     ggplot(aes(x = "", y = CASE_STATUS, fill = CASE_STATUS)) +
@@ -158,13 +173,13 @@ visas %>%
 
 ### Wages Bar Chart 
 
-Below is a bar chart of the wages compared to the case status results. The user may input different fields of restriction to subset the data they want to see. Below the data is subset by: 
+Below is a bar chart of the wages compared to the case status results. The user may input different filters to subset the data as they desire. Below the data is subsetted by: 
 
 - Only full time jobs
 - Year 2011, 2013, or 2016
 - Is some sort of Executive or Physicist
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 visas %>% filter(FULL_TIME_POSITION == "Y" & 
                (YEAR == 2011 | YEAR == 2013 | YEAR == 2016) & 
                PREVAILING_WAGE > 100000 & 
@@ -176,11 +191,11 @@ visas %>% filter(FULL_TIME_POSITION == "Y" &
 
 # Conclusion
 
-When analyzing the data overall the issue is that our regression model did not yield any statistically significant variables. Which is unfortunate but may induce more potential for analysis on this data or type of data. The biggest implication this is that there is no association with prevailing wage and the variables we have imposed. We also see that a majority of the applications are to work in the continental U.S. while there may be some positions not on the continent. 
+When analyzing the data overall, the issue is that our regression model did not yield any statistically significant variables. This is unfortunate, but it opens the door for further statistical analysis on this specific data set or immigration as a whole. The biggest implication is that there is no association between prevailing wage and the variables we have imposed. We also see that a majority of the applications are to work in the continental U.S., though there are some applications not on the main continent as well. 
 
 # References 
 
-https://www.kaggle.com/gpreda/h-1b-visa-applications 
-https://sharan-naribole.github.io/2017/02/24/h1b-eda-part-I.html  
-https://www.saedsayad.com/k_nearest_neighbors.htm 
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4916348/#__sec7title 
+- https://www.kaggle.com/gpreda/h-1b-visa-applications 
+- https://sharan-naribole.github.io/2017/02/24/h1b-eda-part-I.html  
+- https://www.saedsayad.com/k_nearest_neighbors.htm 
+- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4916348/#__sec7title 
