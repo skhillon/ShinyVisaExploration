@@ -10,7 +10,7 @@ function(input, output, session) {
        return(user_info_df)
        })
 
-    output$wage_message <- renderPrint({
+    output$wage_message <- renderText({
        if (update_user_info()$EMPLOYER_NAME != "") {
           paste("Your predicted annual earnings are:", dollar(abs(predict_wage(update_user_info()))))
        } else {
@@ -18,7 +18,7 @@ function(input, output, session) {
        }
     })
 
-    output$case_message <- renderPrint({
+    output$case_message <- renderText({
         if (update_user_info()$EMPLOYER_NAME != "") {
             paste("Your predicted case status is:", predict_case_status(update_user_info()))
         } else {
