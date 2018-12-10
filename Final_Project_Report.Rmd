@@ -1,8 +1,11 @@
 ---
 title: "STAT 331 Final Project Report"
+subtitle: Department of Statistics, Cal Poly San Luis Obispo
+author: Sarthak Khillon, Juan Moreno, Christina Walden
 output:
   html_document:
     df_print: paged
+    
 ---
 
 # Introduction 
