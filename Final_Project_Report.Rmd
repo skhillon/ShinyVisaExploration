@@ -19,7 +19,7 @@ One of the responses variables in this study is encoded as 'PREVAILING_WAGE' to 
 
 Two major concepts were applied in this analysis. The first being KNN model also known as the K nearest neighbors model. K nearest neighbors is an algorithm that stores all available cases and classifies new cases based on a similarity measure. KNN has been used in statistical estimation and pattern recognition since the beginning of 1970’s as a non-parametric technique. We utilized this model due to the nature of our CASE_STATUS variable in order to predict the outcome of a case based on user input information. Futher information on this process can be found in the references portion of the report. Multiple transformations of the data were imposed to correctly run this model. The R script of those transformations can be found below: 
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)  # Misc tidy data wrapper package.
 library(caret)  # kNN model
 library(ggplot2)  # Plotting
@@ -82,7 +82,7 @@ predict_case_status <- function(user_df) {
 A simple linear regression model was applied in order to predict wage, based on the other explanatory variablese included in the data. Linear regression holds four general assumptions: linearity, independence, normality, and equal variance. This model was created in attempt to predict the salary based on user defined input through the application. Something to note, within the data there are high valued observations that present possible skews in the data. However, there was no indication that those observations were invalid or incorrect thus no legitimate reasoning to remove those observations. R script for this regression is provided below: 
 
 
-```{r}
+```{r, echo=FALSE}
 # 3 ===== PREDICTED WAGE REGRESSOR =====
 wage_regressor <- lm(PREVAILING_WAGE ~ lon + lat + emp_encoding + soc_encoding
                      + job_title_encoding + ft_encoding + worksite_encoding,
