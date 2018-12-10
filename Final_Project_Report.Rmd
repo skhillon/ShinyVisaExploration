@@ -1,7 +1,7 @@
 ---
 title: "STAT 331 Final Project Report"
 subtitle: Department of Statistics, Cal Poly San Luis Obispo
-author: Sarthak Khillon, Juan Moreno, Christina Walden
+author: by Sarthak Khillon, Juan Moreno, Christina Walden
 output:
   html_document:
     df_print: paged
@@ -10,19 +10,19 @@ output:
 
 # Introduction 
 
-This project analyzes HB1 visa applications in the United States and the possible association between the various factors included in an application. Based on user-defined input we created two models in order to predict possible salary and outcome of an application. This research analyzes 3,002,458 applications for the the H-1B visa from the years 2011 to 2016. A HB-1 visa allows U.S. employers to employ foreign workers in specialty occupations. This visa is a temporary visa, according to the U.S. Citizenship and Immigration Services this type of visa has a six month maximum for the intial period of stay with possible extension of another six months. For a foreign national to apply for a HB-1 visa, a U.S. employer must first offer them a job and submit petition for a HB-1 visa. This is the most common visa applied for and held by international students once they complete higher education. 
+This project analyzes HB1 visa applications in the United States and the possible association between the various factors included in an application. Based on user-defined input we created two models in order to predict possible salary and outcome of an application. This research analyzes 3,002,458 applications for the H-1B visa from the years 2011 to 2016. A HB-1 visa allows U.S. employers to employ foreign workers in specialty occupations. This visa is a temporary visa, according to the U.S. Citizenship and Immigration Services this type of visa has a six-month maximum for the initial period of stay with possible extension of another six months. For a foreign national to apply for a HB-1 visa, a U.S. employer must first offer them a job and submit petition for a HB-1 visa. This is the most common visa applied for and held by international students once they complete higher education. 
 
-This is considered an observational study since the data provided was recorded without attempts to influence or change the response. The dataset we are going to be analyzing was pulled from the public forum data webpage Kaggle. The Office of Foreign Labor Certification (OFLC) generates this datta and is disclosed annualy online. For further analysis or questions the raw data are available through the OFLC, but this data are not ready for analysis. There were multiple transformations applied by the intial researcher to the raw data in order to prepare this data for analysis. For reference, there is an article explaining the manipulations provided along with an R Notebook file. RStudio will be the primary package utilizied for the statistical analysis being conducted in this report.  
+This is considered an observational study since the data provided was recorded without attempts to influence or change the response. The dataset we are going to be analyzing was pulled from the public forum data webpage Kaggle. The Office of Foreign Labor Certification (OFLC) generates this data and is disclosed annually online. For further analysis or questions the raw data are available through the OFLC, but this data are not ready for analysis. There were multiple transformations applied by the initial researcher to the raw data in order to prepare this data for analysis. For reference, there is an article explaining the manipulations provided along with an R Notebook file. RStudio will be the primary package utilized for the statistical analysis being conducted in this report.  
 
-One of the responses variables in this study is encoded as 'PREVAILING_WAGE' to be defined as the most frequent wage for the corresponding role. The following reponse variable being 'CASE_STATUS' which is defined as the status of an application. There are only four possible reposnses: Withdrawn, Certified, Denied, and Certified-Withdrawn. The rest of the variables in the dataset are to be understood as possible explanatory variables. There are a few character variables: 'EMPLOYER_NAME', 'SOC_NAME', and 'JOB_TITLE'. The dataset holds on binary variable, 'FULL_TIME_POSITION', which has either a yes or no response. The majority of the visa applications are for full-time positions, so we do not expect much explatation of the variation by this variable. The year that the application was processed is contained within the 'YEAR' variable. There is also information pertaining to the location of the employer via the character variable 'WORKSITE', which gives an exact address of the employer worksite, as well as longitude and latitude values of the employer worksite stored as 'lon' and 'lat'.  In order to conduct accurate exploratory data analysis of this dataset we created a Shiny Application through RStudio, which will be further explored in this report. Something to note, a randomized sample of the 3 million observations was taken into order to efficiently analyze the data. The dataset was just too large in order to analyze sucessfully under the time and resources constraints. Link to the created shiny application. 
+One of the responses variables in this study is encoded as 'PREVAILING_WAGE' to be defined as the most frequent wage for the corresponding role. The following response variable being 'CASE_STATUS' which is defined as the status of an application. There are only four possible responses: Withdrawn, Certified, Denied, and Certified-Withdrawn. The rest of the variables in the dataset are to be understood as possible explanatory variables. There are a few character variables: 'EMPLOYER_NAME', 'SOC_NAME', and 'JOB_TITLE'. The dataset holds on binary variable, 'FULL_TIME_POSITION', which has either a yes or no response. The majority of the visa applications are for full-time positions, so we do not expect much explanation of the variation by this variable. The year that the application was processed is contained within the 'YEAR' variable. There is also information pertaining to the location of the employer via the character variable 'WORKSITE', which gives an exact address of the employer worksite, as well as longitude and latitude values of the employer worksite stored as 'lon' and 'lat'.  In order to conduct accurate exploratory data analysis of this dataset we created a Shiny Application through RStudio, which will be further explored in this report. Something to note, a randomized sample of the 3 million observations was taken into order to efficiently analyze the data. The dataset was just too large in order to analyze successfully under the time and resources constraints. Link to the created shiny application. 
 
 [ https://stat331christinasarthakjuan.shinyapps.io/finalproject/ ]
 
 #Statistical Concepts 
 
-Two major concepts were applied in this analysis. The first being KNN model also known as the K nearest neighbors model. K nearest neighbors is an algorithm that stores all available cases and classifies new cases based on a similarity measure. KNN has been used in statistical estimation and pattern recognition since the beginning of 1970’s as a non-parametric technique. We utilized this model due to the nature of our CASE_STATUS variable in order to predict the outcome of a case based on user input information. Futher information on this process can be found in the references portion of the report. Multiple transformations of the data were imposed to correctly run this model. The R script of those transformations can be found below: 
+Two major concepts were applied in this analysis. The first being KNN model also known as the K nearest neighbors model. K nearest neighbors is an algorithm that stores all available cases and classifies new cases based on a similarity measure. KNN has been used in statistical estimation and pattern recognition since the beginning of 1970’s as a non-parametric technique. We utilized this model due to the nature of our CASE_STATUS variable in order to predict the outcome of a case based on user input information. Further information on this process can be found in the references portion of the report. Multiple transformations of the data were imposed to correctly run this model. The R script of those transformations can be found below: 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, results='hide'}
 library(tidyverse)  # Misc tidy data wrapper package.
 library(caret)  # kNN model
 library(ggplot2)  # Plotting
@@ -82,7 +82,7 @@ predict_case_status <- function(user_df) {
 ```
 
 
-A simple linear regression model was applied in order to predict wage, based on the other explanatory variablese included in the data. Linear regression holds four general assumptions: linearity, independence, normality, and equal variance. This model was created in attempt to predict the salary based on user defined input through the application. Something to note, within the data there are high valued observations that present possible skews in the data. However, there was no indication that those observations were invalid or incorrect thus no legitimate reasoning to remove those observations. R script for this regression is provided below: 
+A simple linear regression model was applied in order to predict wage, based on the other explanatory variables included in the data. Linear regression holds four general assumptions: linearity, independence, normality, and equal variance. This model was created in attempt to predict the salary based on user defined input through the application. Something to note, within the data there are high valued observations that present possible skews in the data. However, there was no indication that those observations were invalid or incorrect thus no legitimate reasoning to remove those observations. R script for this regression is provided below: 
 
 
 ```{r, echo=FALSE}
@@ -98,16 +98,16 @@ predict_wage <- function(user_df) {
 }
 ```
 
-Futhermore, there were three typs of exploratory data analysis performed. The firstt being a geographic exploration on the frequency of jobs based on location with an interactive mapping. Second, percentages of case satus results in the form of a pie chart. Lastly, a bar chart on wages based on different case status results.
+Furthermore, there were three types of exploratory data analysis performed. The first being a geographic exploration on the frequency of jobs based on location with an interactive mapping. Second, percentages of case status results in the form of a pie chart. Lastly, a bar chart on wages based on different case status results.
 
 # Results 
 
-### Application Useage 
+### Application Usage 
 
-The first tab in the application will ask for optional input via the user in order to produce predicted results based on the kNN model and the linear regression applied. Those results will be displayed on their respective tabs. If the user opts not to include provide that information they may can explore the data via three methods, seperated by three different tabs. Each tab has as set of possible inputs for the data to be subset by, however the user must take caution in apply too many filters or inaccurate filters. If there are too many filters applied there may not be sufficient data or any data at all t display. An exmaple would be filter to only Apple Inc. as employer, then selecting "Construction Worker" as job title. There is not an observation that fits both those criteria which leads to blank results. The specific types of data exploration are detailed futher in this section. 
+The first tab in the application will ask for optional input via the user in order to produce predicted results based on the kNN model and the linear regression applied. Those results will be displayed on their respective tabs. If the user opts not to include provide that information, they may can explore the data via three methods; separated by three different tabs. Each tab has as set of possible inputs for the data to be subset by, however the user must take caution in apply too many filters or inaccurate filters. If there are too many filters applied there may not be sufficient data or any data at all t display. An example would be filter to only Apple Inc. as employer, then selecting "Construction Worker" as job title. There is not an observation that fits both those criteria which leads to blank results. The specific types of data exploration are detailed further in this section. 
 
 ### Linear Regression Summary 
-The results of this regression are hiidden from the user only the output of predicted salary will be displayed by the application output. 
+The results of this regression are hidden from the user only the output of predicted salary will be displayed by the application output. 
 ```{r}
 summary(wage_regressor)
 ```
@@ -127,7 +127,7 @@ An interactive map is created with simple counts of the number of jobs that fit 
 - Year 2011, 2013, or 2016
 - Is some sort of Executive or Physicist
 
-```{r}
+```{r, echo=FALSE}
 sample.map.filtered <- visas %>%
     filter(CASE_STATUS == "CERTIFIED" &
                FULL_TIME_POSITION == "Y" & 
@@ -143,7 +143,7 @@ leaflet(sample.map.filtered) %>%
 
 Below is a pie chart generated where the user may apply as many filters as they please. In this example the data are only filtered by years 2011 and 2015.
 
-```{r}
+```{r, echo=FALSE}
 visas %>%
     filter(YEAR == 2011 | YEAR == 2015) %>%
     ggplot(aes(x = "", y = CASE_STATUS, fill = CASE_STATUS)) +
@@ -158,13 +158,13 @@ visas %>%
 
 ### Wages Bar Chart 
 
-Below is a bar chart of the wages compared to the case status results. The user may input different fields of restriction to subset the data they want to see. Below the data is subsetted by: 
+Below is a bar chart of the wages compared to the case status results. The user may input different fields of restriction to subset the data they want to see. Below the data is subset by: 
 
 - Only full time jobs
 - Year 2011, 2013, or 2016
 - Is some sort of Executive or Physicist
 
-```{r}
+```{r, echo=FALSE}
 visas %>% filter(FULL_TIME_POSITION == "Y" & 
                (YEAR == 2011 | YEAR == 2013 | YEAR == 2016) & 
                PREVAILING_WAGE > 100000 & 
@@ -176,7 +176,7 @@ visas %>% filter(FULL_TIME_POSITION == "Y" &
 
 # Conclusion
 
-When analyzing the data overall the issue is that our regression model did not yield any statistically significant variables. Which is unfortunate, but may enduce more potential for analysis on this data or type of data. The biggest implication this yields is that there is no association with prevailing wage and the variables we have imposed. We also see that a majority of the applications are to work in the continental U.S. while there may be some positions not on the continent. 
+When analyzing the data overall the issue is that our regression model did not yield any statistically significant variables. Which is unfortunate but may induce more potential for analysis on this data or type of data. The biggest implication this is that there is no association with prevailing wage and the variables we have imposed. We also see that a majority of the applications are to work in the continental U.S. while there may be some positions not on the continent. 
 
 # References 
 
