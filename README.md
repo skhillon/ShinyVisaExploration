@@ -3,6 +3,23 @@
 - Sarthak Khillon
 - Juan Moreno
 
+## Important Files
+- [`Report`](Final_Project_Report.html): Final project report.
+- [`misc/`](misc): Experimental scripts, notes, testing, etc.
+- [`phase2/`](phase2): All code for the phase 2 submission.
+
+### Supplementary Scripts
+Some of these generate intermediate `.RData` files which are loaded in other scripts
+- [`generate_env.R`](generate_env.R)
+- [`visa_and_models.R`](visa_and_models.R)
+
+### Shiny App
+- [`global.R`](global.R): Shared variables, libraries, and functionality.
+- [`server.R`](server.R): Data processing.
+- [`ui.R`](ui.R): User Interface design.
+- [`DESCRIPTION`](DESCRIPTION): App configuration settings.
+
+
 ## Data:
 - Link: https://www.kaggle.com/gpreda/h-1b-visa-applications
 - Description: Contains 5 years of people’s applications for a work-based non-immigrant visa.
