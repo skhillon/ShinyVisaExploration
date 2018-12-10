@@ -46,12 +46,12 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                        h3("Personalized Results (optional)"),
                        p("You can also see", em("your"),
                          "predicted case status and annual earnings! Simply input your information in the form below,
-                         the appropriate tab will display your projected results next to the main visualization component."),
+                         the appropriate tab will display your projected results next to the main visualization component. Inputs are automatically saved."),
                        div(
                            id = "user_form",
 
                            selectizeInput("userEmployer", "Employer",
-                                          choices = c("Select from dropdown" = "", 
+                                          choices = c("Select from dropdown" = "",
                                                       visas$EMPLOYER_NAME),
                                           options = list(
                                               placeholder = "Select from dropdown",
@@ -60,7 +60,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                           selected = ""),
 
                            selectizeInput("userSOC", "SOC Category",
-                                          choices = c("Select from dropdown" = "", 
+                                          choices = c("Select from dropdown" = "",
                                                       visas$SOC_NAME),
                                           options = list(
                                               placeholder = "Select from dropdown",
@@ -69,12 +69,12 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                                           selected = ""),
 
                            selectizeInput("userJobTitle", "Job Title",
-                                          choices = c("Select from dropdown" = "", 
+                                          choices = c("Select from dropdown" = "",
                                                       visas$JOB_TITLE),
                                           options = list(
                                               placeholder = "Select from dropdown",
                                               maxItems = 1
-                                          ), 
+                                          ),
                                           selected = ""),
 
                            checkboxInput("userFullTime", "Full Time?"),
@@ -85,7 +85,7 @@ shinyUI(fluidPage(theme = shinytheme("paper"),
                            numericInput("userLat", "Latitude",
                                         min = -90, max = 90, value = 0),
 
-                           actionButton("submitUserInfo", "Done"), br(), br(), br()
+                           br(), br(), br()
                        )
                    )
                )),
